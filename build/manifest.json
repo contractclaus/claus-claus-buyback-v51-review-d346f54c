@@ -1,0 +1,28 @@
+{
+  "compiler": "0.8.26+commit.8a97fa7a.Emscripten.clang",
+  "sourceHash": "sha256:ab2355c0e854574a3a622eb0378553c9f3de4993d3607f2fab2b7307938be49b",
+  "contracts": [
+    {
+      "role": "hook",
+      "entry": "flatmin/MigrationFeeHookV2.sol",
+      "contract": "MigrationFeeHookV2",
+      "artifactHash": "sha256:34485f339864550af47d98d0514c97deaad0d3b6570c4f77c32cf1524872a0ce",
+      "runtimeHash": "0x6cd4d064b20618060be82611ae8959bbe9ff13632380c6d79dcc576adb292b78",
+      "metadataStrippedRuntimeHash": "0x6257a5572e8b96d8554dc0e30ab4bd6d3316a1a5812753e73902a3d94b60543f",
+      "creationHash": "0xa728149b1facda22a7227fa8ad458a59b0dbcaa3e37152c425d07edf4090f86e",
+      "standardInput": "build/hook.standard-input.json",
+      "artifact": "build/hook.artifact.json"
+    },
+    {
+      "role": "vault",
+      "entry": "flatmin/ClausBuybackVaultV2.sol",
+      "contract": "ClausBuybackVaultV2",
+      "artifactHash": "sha256:c29416662b33ace0513ccf43a2056acbb9aa4878d84f71e59d3533d799a1f9d8",
+      "runtimeHash": "0x8477800a55ac2bcc949c1a388c14004cd91c0a7ddc1716d0ef42ed14dc064023",
+      "metadataStrippedRuntimeHash": "0x3b65056c1699a35db35beb438ea136679f42d1b4102201dc4c19820dbd2a7ca9",
+      "creationHash": "0xd5b38bd3d0a148f5c7833bd41dece5143dc34d50ea32c6bb7e9c537737958c7c",
+      "standardInput": "build/vault.standard-input.json",
+      "artifact": "build/vault.artifact.json"
+    }
+  ]
+}
