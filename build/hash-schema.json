@@ -1,0 +1,19 @@
+{
+  "algorithm": "sha256",
+  "prefix": "sha256:",
+  "encoding": "UTF-8 of canonical JSON: recursively sort object keys lexicographically; preserve array order; no whitespace; JSON.stringify primitive values.",
+  "fileHash": "digest({path,content}), including exact source text and final newline",
+  "sourceHash": "digest(array of {path,hash}, sorted by path using localeCompare(path,\"en\"))",
+  "artifactHash": "digest(entire parsed artifact JSON object); not a bytecode hash or raw JSON-file checksum",
+  "sourceFiles": [
+    {
+      "path": "flatmin/ClausBuybackVaultV2.sol",
+      "hash": "sha256:82085d5f6325b3ee2779822b2047a262d5a9d24270ca688651e23ee758dd9ede"
+    },
+    {
+      "path": "flatmin/MigrationFeeHookV2.sol",
+      "hash": "sha256:3d52b4f8631f0aceb2cc5e51552995c0e31a8b6254cf6ad6592c65eaab32d883"
+    }
+  ],
+  "expectedSourceHash": "sha256:ab2355c0e854574a3a622eb0378553c9f3de4993d3607f2fab2b7307938be49b"
+}
