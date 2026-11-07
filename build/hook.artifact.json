@@ -1,0 +1,1633 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidCaller",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidFee",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPool",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PartialFill",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "liquidity",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "previous",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "destination",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "accrued",
+          "type": "uint256"
+        }
+      ],
+      "name": "AccruedFeesRedirected",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint24",
+          "name": "liquiditySharePips",
+          "type": "uint24"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "vault",
+          "type": "address"
+        }
+      ],
+      "name": "AllocationChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "vault",
+          "type": "address"
+        }
+      ],
+      "name": "BuybackMarked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "liquidity",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "treasury",
+          "type": "uint256"
+        }
+      ],
+      "name": "FeeAllocated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint24",
+          "name": "previousPips",
+          "type": "uint24"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint24",
+          "name": "feePips",
+          "type": "uint24"
+        }
+      ],
+      "name": "FeeChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        }
+      ],
+      "name": "FeeRecipientChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "FeesClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "PoolId",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "int128",
+          "name": "amount0",
+          "type": "int128"
+        },
+        {
+          "indexed": false,
+          "internalType": "int128",
+          "name": "amount1",
+          "type": "int128"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint24",
+          "name": "swapFee",
+          "type": "uint24"
+        }
+      ],
+      "name": "HookSwap",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "launcher",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint160",
+          "name": "openingPrice",
+          "type": "uint160"
+        }
+      ],
+      "name": "LaunchConfigured",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "poolId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "buy",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "grossEth",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "feeEth",
+          "type": "uint256"
+        }
+      ],
+      "name": "SwapFee",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "DENOMINATOR",
+      "outputs": [
+        {
+          "internalType": "uint24",
+          "name": "",
+          "type": "uint24"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MANAGER",
+      "outputs": [
+        {
+          "internalType": "contract IPoolManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int24",
+              "name": "tickLower",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickUpper",
+              "type": "int24"
+            },
+            {
+              "internalType": "int256",
+              "name": "liquidityDelta",
+              "type": "int256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct ModifyLiquidityParams",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "afterAddLiquidity",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "afterDonate",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint160",
+          "name": "",
+          "type": "uint160"
+        },
+        {
+          "internalType": "int24",
+          "name": "",
+          "type": "int24"
+        }
+      ],
+      "name": "afterInitialize",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int24",
+              "name": "tickLower",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickUpper",
+              "type": "int24"
+            },
+            {
+              "internalType": "int256",
+              "name": "liquidityDelta",
+              "type": "int256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct ModifyLiquidityParams",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "afterRemoveLiquidity",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "zeroForOne",
+              "type": "bool"
+            },
+            {
+              "internalType": "int256",
+              "name": "amountSpecified",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint160",
+              "name": "sqrtPriceLimitX96",
+              "type": "uint160"
+            }
+          ],
+          "internalType": "struct SwapParams",
+          "name": "p",
+          "type": "tuple"
+        },
+        {
+          "internalType": "BalanceDelta",
+          "name": "delta",
+          "type": "int256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "afterSwap",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        },
+        {
+          "internalType": "int128",
+          "name": "returnedFee",
+          "type": "int128"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "allocation",
+      "outputs": [
+        {
+          "internalType": "uint24",
+          "name": "",
+          "type": "uint24"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int24",
+              "name": "tickLower",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickUpper",
+              "type": "int24"
+            },
+            {
+              "internalType": "int256",
+              "name": "liquidityDelta",
+              "type": "int256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct ModifyLiquidityParams",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "beforeAddLiquidity",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "beforeDonate",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint160",
+          "name": "price",
+          "type": "uint160"
+        }
+      ],
+      "name": "beforeInitialize",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int24",
+              "name": "tickLower",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickUpper",
+              "type": "int24"
+            },
+            {
+              "internalType": "int256",
+              "name": "liquidityDelta",
+              "type": "int256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct ModifyLiquidityParams",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "beforeRemoveLiquidity",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "zeroForOne",
+              "type": "bool"
+            },
+            {
+              "internalType": "int256",
+              "name": "amountSpecified",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint160",
+              "name": "sqrtPriceLimitX96",
+              "type": "uint160"
+            }
+          ],
+          "internalType": "struct SwapParams",
+          "name": "p",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "beforeSwap",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        },
+        {
+          "internalType": "BeforeSwapDelta",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint24",
+          "name": "",
+          "type": "uint24"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimLiquidityFees",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimTreasuryFees",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "launcher_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint160",
+          "name": "price",
+          "type": "uint160"
+        }
+      ],
+      "name": "configureLaunch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feePips",
+      "outputs": [
+        {
+          "internalType": "uint24",
+          "name": "",
+          "type": "uint24"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feeRecipient",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        }
+      ],
+      "name": "getEffectiveLiquidity",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "Currency",
+              "name": "currency0",
+              "type": "address"
+            },
+            {
+              "internalType": "Currency",
+              "name": "currency1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint24",
+              "name": "fee",
+              "type": "uint24"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "contract IHooks",
+              "name": "hooks",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct PoolKey",
+          "name": "key",
+          "type": "tuple"
+        }
+      ],
+      "name": "getReserves",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "hook",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "administrator",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token_",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "launcher_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint160",
+          "name": "price",
+          "type": "uint160"
+        },
+        {
+          "internalType": "int24",
+          "name": "spacing",
+          "type": "int24"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "launched",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "markBuyback",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "poolId",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint24",
+          "name": "value",
+          "type": "uint24"
+        }
+      ],
+      "name": "setFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "value",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeRecipient",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint24",
+          "name": "share",
+          "type": "uint24"
+        }
+      ],
+      "name": "setLiquidityShare",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "vault",
+          "type": "address"
+        }
+      ],
+      "name": "setLiquidityVault",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "id",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "token",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "unlockCallback",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "contract": "MigrationFeeHookV2",
+  "creationBytecode": "0x6080806040523460d0577ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a005460ff8160401c1660c1576002600160401b03196001600160401b03821601605c575b60405161263990816100d58239f35b6001600160401b0319166001600160401b039081177ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a005581527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d290602090a15f80604d565b63f92ee8a960e01b5f5260045ffd5b5f80fdfe6080806040526004361015610012575f80fd5b5f905f3560e01c90816301ffc9a714611c12575080631b2df85014611beb57806320c751e114611ac757806321d0ee7014611a85578063259982e514611a4357806328c3206914611a1b5780633e0dc34e146119f257806346904840146119be57806348d8b0ba14611827578063575e24b4146117115780636c2bbe7e146116c95780636fe7e6eb14611581578063715018a614611502578063726c74d81461148b5780637712a86e146113e557806379ba5097146113955780637f5a7c7b1461137a5780638091f3bf1461134857806388a17bde146112de5780638da5cb5b146112a9578063918f86741461128b57806391dd7346146110ed57806398905c81146110bb5780639f063efc14611071578063b47b2fb114610bdb578063b6a8b0fa14610b96578063d1ba24e714610b17578063dc98354e14610931578063e1b4af69146108ec578063e30c3978146108b7578063e74b981b146107e7578063e8cd186314610547578063eabb562214610473578063f2fde38b146103ed578063f57a5e261461030b578063f97f5c95146101ec5763fc0c546a146101b5575f80fd5b346101e957806003193601126101e9575f805160206125c4833981519152546040516001600160a01b039091168152602090f35b80fd5b50346101e957806003193601126101e957610205612199565b6102fc575f805160206124c4833981519152545f8051602061248483398151915254829060181c6001600160a01b0316801515806102f3575b156102ef575f805160206124c48339815191528290556040805160208101949094526001600160a01b03909116908301526102a49161028a81606081015b03601f198101835282611eb1565b604051809381926348c8949160e01b835260048301611dff565b0381835f805160206124e48339815191525af180156102e4576102c5575080f35b6102e0903d8084833e6102d88183611eb1565b81019061202e565b5080f35b6040513d84823e3d90fd5b5080fd5b5082151561023e565b6348f5c3ed60e01b8152600490fd5b50346101e95760403660031901126101e957610325611c65565b61032d611c7b565b90610336612166565b61033e612199565b6103de5760ff5f805160206125048339815191525460d01c1615806103cc575b806103ba575b156103b6576020816103967f72de0246c64d51275a65a2edbfa46f6cae6c79aa3f88cc5f55225367c6828d6a936120d6565b61039f84612131565b6040516001600160a01b039485168152931692a280f35b8280fd5b506001600160a01b0382161515610364565b506001600160a01b038116151561035e565b6348f5c3ed60e01b8352600483fd5b50346101e95760203660031901126101e957610407611c65565b61040f612166565b5f805160206125e483398151915280546001600160a01b0319166001600160a01b039283169081179091555f80516020612524833981519152549091167f38d16b8cac22d99fc7c124b9cd0de2d3fa1faef420bfe791d8c362d765e227008380a380f35b50346101e95760203660031901126101e95761048d611ded565b610495612166565b61049d612199565b6105385762ffffff8116620f42408110156105295760407f78b926af55587ebdaf37d4eff73ad580664765259c865f45005b004ce380fdaa9162ffffff5f805160206125048339815191525460b81c169082519182526020820152a15f80516020612504833981519152805462ffffff60b81b191660b89290921b62ffffff60b81b1691909117905580f35b6358d620b360e01b8352600483fd5b6348f5c3ed60e01b8252600482fd5b50346101e95760a03660031901126101e957610561611c65565b610569611c7b565b610571611c91565b6064356001600160a01b0381169390918483036107e357610590611ddd565b935f80516020612564833981519152549560ff8760401c16159667ffffffffffffffff8116801590816107db575b60011490816107d1575b1590816107c8575b506107b95767ffffffffffffffff1981166001175f80516020612564833981519152558761078d575b50813b1515908161077a575b81610770575b5080610764575b156107605761061f612458565b610627612458565b6001600160a01b0383161561074c579161068c61069192610696959461064c846123ed565b610654612458565b60018060a01b03166001600160601b0360a01b5f805160206125c48339815191525416175f805160206125c4833981519152556120d6565b6120a1565b612131565b5f80516020612504833981519152805465ffffffffffff60a01b191662ffffff60a01b60a09390931b929092169190911761027160bd1b1790555f80516020612484833981519152805462ffffff19166207a1201790556106f45780f35b68ff0000000000000000195f8051602061256483398151915254165f80516020612564833981519152557fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2602060405160018152a180f35b631e4fbdf760e01b87526004879052602487fd5b8680fd5b50868560020b13610612565b905015155f61060b565b6001600160a01b03841615159150610605565b68ffffffffffffffffff191668010000000000000001175f80516020612564833981519152555f6105f9565b63f92ee8a960e01b8952600489fd5b9050155f6105d0565b303b1591506105c8565b8991506105be565b8580fd5b50346101e95760203660031901126101e957610801611c65565b610809612166565b610811612199565b610538576001600160a01b0381169081156103b657610890907f7034f072d5ba3ef484ffcb654be46db3cf85bc8fc469b7c52b6f60bfda4c2a2f608060018060a01b035f805160206124a483398151915254165f80516020612544833981519152546040519188835260208301528660408301526060820152a16120a1565b7f167cccccc6e9b2892a740ec13fc1e51d3de8ea384f25bd87fee7412d588637e28280a280f35b50346101e957806003193601126101e9575f805160206125e4833981519152546040516001600160a01b039091168152602090f35b50346101e9576108fb36611e29565b505050509190505f805160206124e483398151915233036102fc5761091f826122ae565b60405163e1b4af6960e01b8152602090f35b50346101e95760e03660031901126101e95761094b611c65565b9060a03660231901126101e957610960611db7565b915f805160206124e48339815191523303610538575f80516020612504833981519152549260ff8460d01c16918215610ade575b508115610ac7575b508015610aa9575b8015610a73575b8015610a55575b8015610a39575b8015610a1c575b610a0e575060ff60d01b1916600160d01b175f805160206125048339815191525560a06109ec36611f33565b205f805160206125a483398151915255604051636e4c1aa760e11b8152602090f35b62820f3560e61b8152600490fd5b506084358060020b8091036102ef578260a01c60020b14156109c0565b5060643562ffffff81168091036102ef576280000014156109b9565b5060a4356001600160a01b038116908190036102ef573014156109b2565b506044356001600160a01b038116908181036103b657505f805160206125c4833981519152546001600160a01b031614156109ab565b506024356001600160a01b038116908181036103b6575015156109a4565b6001600160a01b038481169116141590505f61099c565b7f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b546001600160a01b039182169116141591505f610994565b50346101e957806003193601126101e957610b30612199565b6102fc575f80516020612544833981519152548181156101e9575f805160206125448339815191528190555f805160206124a4833981519152546040805160208101949094526001600160a01b03909116908301526102a49161028a816060810161027c565b50346101e957610ba536611e29565b505050509190505f805160206124e483398151915233036102fc57610bc9826122ae565b604051635b54587d60e11b8152602090f35b50346101e9576101603660031901126101e957610bf6611c65565b9060a03660231901126101e95760603660c31901126101e95761012435906101443567ffffffffffffffff81116102ef57610c35903690600401611cbb565b50505f805160206124e483398151915233036102fc578091610c5561227e565b60e4359082821290811580938194611061575b81611053575b506110445760801d600f0b8381121561103e57610c8a90611f03565b905b839260015f805160206125848339815191525c1480611030575b8061101b575b15610f475790610f36575b610f2757915b81610d37575b507ff5ddea8aa0b31d2becefdaa14417720f67edc7483593c867b6fd119b71ce78e860606040955f805160206125a48339815191525493610d02611ef4565b885190151581526020810196909652858801526001600160a01b031693a381519063b47b2fb160e01b8252600f0b6020820152f35b935f805160206124e48339815191523b15610f235784604051630ab714fb60e11b81523060048201528160248201528360448201528181606481835f805160206124e48339815191525af180156102e457610f0e575b50507f2e56a25c35d59c2694ee011409b46fff904d987d1387b392eba75bbdd2aa44876040620f4240610dd362ffffff5f80516020612484833981519152541686611f20565b04610dec815f805160206124c483398151915254611ed3565b5f805160206124c483398151915255610e1c610e088287611f13565b5f8051602061254483398151915254611ed3565b5f8051602061254483398151915255610e358186611f13565b82519182526020820152a160a0610e4b36611f33565b20610e55836123cc565b600f0b906f7fffffffffffffffffffffffffffffff198214610efa57916060917ff5ddea8aa0b31d2becefdaa14417720f67edc7483593c867b6fd119b71ce78e89360409862ffffff5f805160206125048339815191525460b81c16908a51938103600f0b84526020840152898301527fcad2240a6a0fe98d7dc71ceeae7ade75e73f32b8f370c1ac40a861bc081381bc8460018060a01b03851693a3955050610cc3565b634e487b7160e01b87526011600452602487fd5b81610f1891611eb1565b610f2357845f610d8d565b8480fd5b631b2c9ea560e31b8352600483fd5b50610f3f612312565b811415610cb7565b509150610f526122fa565b15610fcd57610f5f612312565b908215610fbe57610f6f826123a3565b925b838115610fad57610f829084611f13565b80925b03610f9e5715610f9757505b91610cbd565b9050610f91565b631b2c9ea560e31b8552600485fd5b610fb79084611ed3565b8092610f85565b610fc782612350565b92610f71565b919250801561100957610ff5610fe2836123a3565b925b8380935f14610ffb57505b926123cc565b92610cbd565b61100491611ed3565b610fef565b610ff561101583612350565b92610fe4565b855f805160206125848339815191525d610cac565b50611039611ef4565b610ca6565b90610c8c565b631b2c9ea560e31b8452600484fd5b905081600f0b14155f610c6e565b905061106b611ef4565b90610c68565b50346101e95761108036611d4d565b50505050509190505f805160206124e483398151915233036102fc576110a76040926122ae565b8151906327c18fbf60e21b82526020820152f35b50346101e957806003193601126101e957602062ffffff5f805160206125048339815191525460b81c16604051908152f35b50346101e95760203660031901126101e95760043567ffffffffffffffff81116102ef5761111f903690600401611cbb565b5f805160206124e483398151915292919233036105385782604091810103126101e9576020823592013560018060a01b0381168091036102ef575f805160206124e48339815191523b156102ef57604051637a94c56560e11b81523060048201528260248201528360448201528281606481835f805160206124e48339815191525af1801561126b57908391611276575b50505f805160206124e48339815191523b156102ef57604051630b0d9c0960e01b81528260048201528160248201528360448201528281606481835f805160206124e48339815191525af1801561126b57611256575b507f9493e5bbe4e8e0ac67284469a2d677403d0378a85a59e341d3abc433d0d9a209602061125294604051908152a260405190611244602083611eb1565b815260405191829182611dff565b0390f35b611261838092611eb1565b6102ef575f611206565b6040513d85823e3d90fd5b8161128091611eb1565b6102ef57815f6111b0565b50346101e957806003193601126101e9576020604051620f42408152f35b50346101e957806003193601126101e9575f80516020612524833981519152546040516001600160a01b039091168152602090f35b50346101e957806003193601126101e95760805f80516020612484833981519152545f805160206124c4833981519152545f8051602061254483398151915254906040519262ffffff8116845260018060a01b039060181c16602084015260408301526060820152f35b50346101e957806003193601126101e957602060ff5f805160206125048339815191525460d01c166040519015158152f35b50346101e957806003193601126101e9576020604051308152f35b50346101e957806003193601126101e9575f805160206125e483398151915254336001600160a01b03909116036113d2576113cf336123ed565b80f35b63118cdaa760e01b815233600452602490fd5b50346101e95760203660031901126101e9576113ff611ded565b611407612166565b61140f612199565b6105385762ffffff811690620f424082116103b6575f80516020612484833981519152805462ffffff191692909217918290556040805162ffffff92909216825260189290921c6001600160a01b031660208201527f6d0c1de0c5e67f35b6d052c3db15258f1669f9986196694a06195abd8eee4d269190a180f35b50346101e957806003193601126101e9576114a4612199565b6102fc575f805160206124848339815191525460181c6001600160a01b031633036102fc5760015f805160206125848339815191525d337f5629364a836c593b2463ccbc4ccfbd819343dfcc41d4fbf0cf80bb2f1eb9aa928280a280f35b50346101e957806003193601126101e95761151b612166565b5f805160206125e483398151915280546001600160a01b03199081169091555f805160206125248339815191528054918216905581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b346116b6576101003660031901126116b65761159b611c65565b5060a03660231901126116b6576115b0611db7565b506115b9611dcd565b505f805160206124e483398151915233036116ba576115d661227e565b5f805160206124e48339815191523b156116b657604051635275965160e01b81526001600160a01b03611607611c7b565b1660048201526001600160a01b0361161d611c91565b16602482015260643562ffffff81168091036116b6576044820152611640611ddd565b60020b606482015260a4356001600160a01b038116908190036116b65760848201525f60a48201525f8160c481835f805160206124e48339815191525af180156116ab5761169b575b604051636fe7e6eb60e01b8152602090f35b5f6116a591611eb1565b5f611689565b6040513d5f823e3d90fd5b5f80fd5b6348f5c3ed60e01b5f5260045ffd5b346116b6576116d736611d4d565b505050505090505f805160206124e483398151915233036116ba576116fb906122ae565b60408051633615df3f60e11b81525f6020820152f35b346116b6576101403660031901126116b65761172b611c65565b5060a03660231901126116b65760603660c31901126116b6576101243567ffffffffffffffff81116116b657611765903690600401611cbb565b50505f805160206124e483398151915233036116ba5761178361227e565b5f61178c6122fa565b806117fa575b6117c3575b6117a26060916123cc565b60801b604051906315d7892d60e21b82526020820152624000006040820152f35b5060606117a26117d1612312565b5f60e43512156117ec576117e4906123a3565b915050611797565b6117f590612350565b6117e4565b5060015f805160206125848339815191525c1480611819575b15611792565b50611822611ef4565b611813565b346116b65760a03660031901126116b657611840612228565b604051627eeac760e11b81523060048201525f6024820152476020826044815f805160206124e48339815191525afa9081156116ab575f91611988575b6118879250611ed3565b5f805160206125c4833981519152546040516370a0823160e01b815230600482015291906001600160a01b0316602083602481845afa9283156116ab575f93611954575b5060405190627eeac760e11b825230600483015260248201526020816044815f805160206124e48339815191525afa9081156116ab575f91611921575b5061191590604093611ed3565b82519182526020820152f35b90506020813d60201161194c575b8161193c60209383611eb1565b810103126116b657516040611908565b3d915061192f565b9092506020813d602011611980575b8161197060209383611eb1565b810103126116b6575191836118cb565b3d9150611963565b90506020823d6020116119b6575b816119a360209383611eb1565b810103126116b65761188791519061187d565b3d9150611996565b346116b6575f3660031901126116b6575f805160206124a4833981519152546040516001600160a01b039091168152602090f35b346116b6575f3660031901126116b65760205f805160206125a483398151915254604051908152f35b346116b65760a03660031901126116b657611a34612228565b604080515f81525f6020820152f35b346116b657611a5136611ce9565b50505090505f805160206124e483398151915233036116ba57611a73906122ae565b60405163259982e560e01b8152602090f35b346116b657611a9336611ce9565b50505090505f805160206124e483398151915233036116ba57611ab5906122ae565b60405163021d0ee760e41b8152602090f35b346116b65760203660031901126116b657611ae0611c65565b611ae8612166565b611af0612199565b6116ba57803b156116b65762ffffff7f6d0c1de0c5e67f35b6d052c3db15258f1669f9986196694a06195abd8eee4d2691611be65f8051602061248483398151915254917f7034f072d5ba3ef484ffcb654be46db3cf85bc8fc469b7c52b6f60bfda4c2a2f60805f805160206124c483398151915254604051906001825260018060a01b038760181c16602083015260018060a01b03851660408301526060820152a16301000000600160b81b03601882901b166301000000600160b81b03198416175f8051602061248483398151915255604080519490931662ffffff1684526001600160a01b031660208401528291820190565b0390a1005b346116b6575f3660031901126116b65760206040515f805160206124e48339815191528152f35b346116b65760203660031901126116b6576004359063ffffffff60e01b82168092036116b6576020916301ffc9a760e01b8114908115611c54575b5015158152f35b6303e83d9560e31b14905083611c4d565b600435906001600160a01b03821682036116b657565b602435906001600160a01b03821682036116b657565b604435906001600160a01b03821682036116b657565b35906001600160a01b03821682036116b657565b9181601f840112156116b65782359167ffffffffffffffff83116116b657602083818601950101116116b657565b906101606003198301126116b6576004356001600160a01b03811681036116b6579160a06023198201126116b657602491608060c3198301126116b65760c491610144359067ffffffffffffffff82116116b657611d4991600401611cbb565b9091565b906101a06003198301126116b6576004356001600160a01b03811681036116b6579160a06023198201126116b657602491608060c3198301126116b65760c49161014435916101643591610184359067ffffffffffffffff82116116b657611d4991600401611cbb565b60c435906001600160a01b03821682036116b657565b60e435908160020b82036116b657565b608435908160020b82036116b657565b6004359062ffffff821682036116b657565b602060409281835280519182918282860152018484015e5f828201840152601f01601f1916010190565b6101206003198201126116b6576004356001600160a01b03811681036116b6579160a06023198301126116b65760249160c4359160e43591610104359067ffffffffffffffff82116116b657611d4991600401611cbb565b60a0810190811067ffffffffffffffff821117611e9d57604052565b634e487b7160e01b5f52604160045260245ffd5b90601f8019910116810190811067ffffffffffffffff821117611e9d57604052565b91908201809211611ee057565b634e487b7160e01b5f52601160045260245ffd5b60c43580151581036116b65790565b600160ff1b8114611ee0575f0390565b91908203918211611ee057565b81810292918115918404141715611ee057565b60a09060231901126116b65760405190611f4c82611e81565b816024356001600160a01b03811681036116b65781526044356001600160a01b03811681036116b657602082015260643562ffffff811681036116b65760408201526084358060020b81036116b657606082015260a435906001600160a01b03821682036116b65760800152565b91908260a09103126116b657604051611fd281611e81565b8092611fdd81611ca7565b8252611feb60208201611ca7565b6020830152604081013562ffffff811681036116b65760408301526060810135908160020b82036116b6576080612029918193606086015201611ca7565b910152565b6020818303126116b65780519067ffffffffffffffff82116116b6570181601f820112156116b65780519067ffffffffffffffff8211611e9d5760405192612080601f8401601f191660200185611eb1565b828452602083830101116116b657815f9260208093018386015e8301015290565b60018060a01b03166001600160601b0360a01b5f805160206124a48339815191525416175f805160206124a483398151915255565b60018060a01b03166001600160601b0360a01b7f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b5416177f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b55565b60018060a01b03166001600160601b0360a01b5f805160206125048339815191525416175f8051602061250483398151915255565b5f80516020612524833981519152546001600160a01b0316330361218657565b63118cdaa760e01b5f523360045260245ffd5b60405163789add5560e11b81527fc090fc4683624cfc3884e9d8de5eca132f2d0ec062aff75d43c0465d5ceeab2360048201526020816024815f805160206124e48339815191525afa9081156116ab575f916121f6575b50151590565b90506020813d602011612220575b8161221160209383611eb1565b810103126116b657515f6121f0565b3d9150612204565b60ff5f805160206125048339815191525460d01c16158015612259575b61224b57565b62820f3560e61b5f5260045ffd5b5060a0612267366004611fba565b205f805160206125a4833981519152541415612245565b60ff5f805160206125048339815191525460d01c161580156122a05761224b57565b5060a0612267366024611fba565b60ff5f805160206125048339815191525460d01c16159081156122d3575b5061224b57565b60a091506122e2903690611fba565b205f805160206125a48339815191525414155f6122cc565b60c435801515908181036116b657505f60e435121490565b60e4355f811290815f1461234b5760010190600182128015821691151617611ee05761233d90611f03565b60018101809111611ee05790565b905090565b61237162ffffff5f805160206125048339815191525460b81c168092611f20565b81620f42400391620f42408311611ee057620f42401461238f570490565b634e487b7160e01b5f52601260045260245ffd5b6123c8620f42409162ffffff5f805160206125048339815191525460b81c1690611f20565b0490565b6001607f1b8110156123de57600f0b90565b6393dafdf160e01b5f5260045ffd5b5f805160206125e483398151915280546001600160a01b03199081169091555f8051602061252483398151915280549182166001600160a01b0393841690811790915591167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a3565b60ff5f805160206125648339815191525460401c161561247457565b631afcd79f60e31b5f5260045ffdfed904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d23fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42cd904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d30000000000000000000000008366a39cc670b4001a1121b8f6a443a643e409513fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42d9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300d904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d4f0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a0080ffb0305068cb1de0eb7e7c38338903cb5ec248a95292e62dd534c6f46d33ed3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42e3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42a237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c00a26469706673582212205671bb6fede1864ad8ec89ab2a86683328e988ff41456c29a1eb50b5e707578e64736f6c634300081a0033",
+  "entry": "flatmin/MigrationFeeHookV2.sol",
+  "evidenceLevel": "compiled_only",
+  "immutableReferences": {},
+  "inputHash": "sha256:d2af93ba3c9e59a03d4058a64e019108b4d0199f3a00763c8cbd4ea19eb508dc",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidCaller\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidFee\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidPool\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PartialFill\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"liquidity\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previous\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"accrued\",\"type\":\"uint256\"}],\"name\":\"AccruedFeesRedirected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint24\",\"name\":\"liquiditySharePips\",\"type\":\"uint24\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"vault\",\"type\":\"address\"}],\"name\":\"AllocationChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"vault\",\"type\":\"address\"}],\"name\":\"BuybackMarked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"liquidity\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"treasury\",\"type\":\"uint256\"}],\"name\":\"FeeAllocated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint24\",\"name\":\"previousPips\",\"type\":\"uint24\"},{\"indexed\":false,\"internalType\":\"uint24\",\"name\":\"feePips\",\"type\":\"uint24\"}],\"name\":\"FeeChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"}],\"name\":\"FeeRecipientChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"FeesClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"PoolId\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int128\",\"name\":\"amount0\",\"type\":\"int128\"},{\"indexed\":false,\"internalType\":\"int128\",\"name\":\"amount1\",\"type\":\"int128\"},{\"indexed\":false,\"internalType\":\"uint24\",\"name\":\"swapFee\",\"type\":\"uint24\"}],\"name\":\"HookSwap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"launcher\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint160\",\"name\":\"openingPrice\",\"type\":\"uint160\"}],\"name\":\"LaunchConfigured\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"poolId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"buy\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"grossEth\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"feeEth\",\"type\":\"uint256\"}],\"name\":\"SwapFee\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DENOMINATOR\",\"outputs\":[{\"internalType\":\"uint24\",\"name\":\"\",\"type\":\"uint24\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MANAGER\",\"outputs\":[{\"internalType\":\"contract IPoolManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"acceptOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"int24\",\"name\":\"tickLower\",\"type\":\"int24\"},{\"internalType\":\"int24\",\"name\":\"tickUpper\",\"type\":\"int24\"},{\"internalType\":\"int256\",\"name\":\"liquidityDelta\",\"type\":\"int256\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"internalType\":\"struct ModifyLiquidityParams\",\"name\":\"\",\"type\":\"tuple\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"afterAddLiquidity\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"afterDonate\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"internalType\":\"uint160\",\"name\":\"\",\"type\":\"uint160\"},{\"internalType\":\"int24\",\"name\":\"\",\"type\":\"int24\"}],\"name\":\"afterInitialize\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"int24\",\"name\":\"tickLower\",\"type\":\"int24\"},{\"internalType\":\"int24\",\"name\":\"tickUpper\",\"type\":\"int24\"},{\"internalType\":\"int256\",\"name\":\"liquidityDelta\",\"type\":\"int256\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"internalType\":\"struct ModifyLiquidityParams\",\"name\":\"\",\"type\":\"tuple\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"afterRemoveLiquidity\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"},{\"internalType\":\"BalanceDelta\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"bool\",\"name\":\"zeroForOne\",\"type\":\"bool\"},{\"internalType\":\"int256\",\"name\":\"amountSpecified\",\"type\":\"int256\"},{\"internalType\":\"uint160\",\"name\":\"sqrtPriceLimitX96\",\"type\":\"uint160\"}],\"internalType\":\"struct SwapParams\",\"name\":\"p\",\"type\":\"tuple\"},{\"internalType\":\"BalanceDelta\",\"name\":\"delta\",\"type\":\"int256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"afterSwap\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"},{\"internalType\":\"int128\",\"name\":\"returnedFee\",\"type\":\"int128\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocation\",\"outputs\":[{\"internalType\":\"uint24\",\"name\":\"\",\"type\":\"uint24\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"int24\",\"name\":\"tickLower\",\"type\":\"int24\"},{\"internalType\":\"int24\",\"name\":\"tickUpper\",\"type\":\"int24\"},{\"internalType\":\"int256\",\"name\":\"liquidityDelta\",\"type\":\"int256\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"internalType\":\"struct ModifyLiquidityParams\",\"name\":\"\",\"type\":\"tuple\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"beforeAddLiquidity\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"beforeDonate\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"internalType\":\"uint160\",\"name\":\"price\",\"type\":\"uint160\"}],\"name\":\"beforeInitialize\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"int24\",\"name\":\"tickLower\",\"type\":\"int24\"},{\"internalType\":\"int24\",\"name\":\"tickUpper\",\"type\":\"int24\"},{\"internalType\":\"int256\",\"name\":\"liquidityDelta\",\"type\":\"int256\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"internalType\":\"struct ModifyLiquidityParams\",\"name\":\"\",\"type\":\"tuple\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"beforeRemoveLiquidity\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"bool\",\"name\":\"zeroForOne\",\"type\":\"bool\"},{\"internalType\":\"int256\",\"name\":\"amountSpecified\",\"type\":\"int256\"},{\"internalType\":\"uint160\",\"name\":\"sqrtPriceLimitX96\",\"type\":\"uint160\"}],\"internalType\":\"struct SwapParams\",\"name\":\"p\",\"type\":\"tuple\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"beforeSwap\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"},{\"internalType\":\"BeforeSwapDelta\",\"name\":\"\",\"type\":\"int256\"},{\"internalType\":\"uint24\",\"name\":\"\",\"type\":\"uint24\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"claimLiquidityFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"claimTreasuryFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"launcher_\",\"type\":\"address\"},{\"internalType\":\"uint160\",\"name\":\"price\",\"type\":\"uint160\"}],\"name\":\"configureLaunch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feePips\",\"outputs\":[{\"internalType\":\"uint24\",\"name\":\"\",\"type\":\"uint24\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeRecipient\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"}],\"name\":\"getEffectiveLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"Currency\",\"name\":\"currency0\",\"type\":\"address\"},{\"internalType\":\"Currency\",\"name\":\"currency1\",\"type\":\"address\"},{\"internalType\":\"uint24\",\"name\":\"fee\",\"type\":\"uint24\"},{\"internalType\":\"int24\",\"name\":\"tickSpacing\",\"type\":\"int24\"},{\"internalType\":\"contract IHooks\",\"name\":\"hooks\",\"type\":\"address\"}],\"internalType\":\"struct PoolKey\",\"name\":\"key\",\"type\":\"tuple\"}],\"name\":\"getReserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hook\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"administrator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token_\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"launcher_\",\"type\":\"address\"},{\"internalType\":\"uint160\",\"name\":\"price\",\"type\":\"uint160\"},{\"internalType\":\"int24\",\"name\":\"spacing\",\"type\":\"int24\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"launched\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"markBuyback\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint24\",\"name\":\"value\",\"type\":\"uint24\"}],\"name\":\"setFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"value\",\"type\":\"address\"}],\"name\":\"setFeeRecipient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint24\",\"name\":\"share\",\"type\":\"uint24\"}],\"name\":\"setLiquidityShare\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"vault\",\"type\":\"address\"}],\"name\":\"setLiquidityVault\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"id\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"unlockCallback\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"flatmin/MigrationFeeHookV2.sol\":\"MigrationFeeHookV2\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/contracts/=flatmin/lib/openzeppelin-contracts/contracts/\",\":@uniswap/v4-core/=flatmin/lib/v4-core/\",\":solmate/=flatmin/lib/v4-core/lib/solmate/\"],\"viaIR\":true},\"sources\":{\"flatmin/MigrationFeeHookV2.sol\":{\"keccak256\":\"0xcfad4f9f123b7990021e477a96245a34f449e40c66f8a67945b0a7e19752e129\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://701fde2faec7bf53efb6870a18b6975372344aa0b19a2160a17e637fb019a488\",\"dweb:/ipfs/QmTKURmgUpHquBZbMZsuZEgbq3zcBBvJx4sWgCJhHUYzsW\"]}},\"version\":1}",
+  "profile": {
+    "compiler": "0.8.26+commit.8a97fa7a.Emscripten.clang",
+    "evmVersion": "cancun",
+    "optimizerRuns": 200,
+    "profile": "solidity-0.8.26-static-v1",
+    "viaIR": true
+  },
+  "runtimeTemplate": "0x6080806040526004361015610012575f80fd5b5f905f3560e01c90816301ffc9a714611c12575080631b2df85014611beb57806320c751e114611ac757806321d0ee7014611a85578063259982e514611a4357806328c3206914611a1b5780633e0dc34e146119f257806346904840146119be57806348d8b0ba14611827578063575e24b4146117115780636c2bbe7e146116c95780636fe7e6eb14611581578063715018a614611502578063726c74d81461148b5780637712a86e146113e557806379ba5097146113955780637f5a7c7b1461137a5780638091f3bf1461134857806388a17bde146112de5780638da5cb5b146112a9578063918f86741461128b57806391dd7346146110ed57806398905c81146110bb5780639f063efc14611071578063b47b2fb114610bdb578063b6a8b0fa14610b96578063d1ba24e714610b17578063dc98354e14610931578063e1b4af69146108ec578063e30c3978146108b7578063e74b981b146107e7578063e8cd186314610547578063eabb562214610473578063f2fde38b146103ed578063f57a5e261461030b578063f97f5c95146101ec5763fc0c546a146101b5575f80fd5b346101e957806003193601126101e9575f805160206125c4833981519152546040516001600160a01b039091168152602090f35b80fd5b50346101e957806003193601126101e957610205612199565b6102fc575f805160206124c4833981519152545f8051602061248483398151915254829060181c6001600160a01b0316801515806102f3575b156102ef575f805160206124c48339815191528290556040805160208101949094526001600160a01b03909116908301526102a49161028a81606081015b03601f198101835282611eb1565b604051809381926348c8949160e01b835260048301611dff565b0381835f805160206124e48339815191525af180156102e4576102c5575080f35b6102e0903d8084833e6102d88183611eb1565b81019061202e565b5080f35b6040513d84823e3d90fd5b5080fd5b5082151561023e565b6348f5c3ed60e01b8152600490fd5b50346101e95760403660031901126101e957610325611c65565b61032d611c7b565b90610336612166565b61033e612199565b6103de5760ff5f805160206125048339815191525460d01c1615806103cc575b806103ba575b156103b6576020816103967f72de0246c64d51275a65a2edbfa46f6cae6c79aa3f88cc5f55225367c6828d6a936120d6565b61039f84612131565b6040516001600160a01b039485168152931692a280f35b8280fd5b506001600160a01b0382161515610364565b506001600160a01b038116151561035e565b6348f5c3ed60e01b8352600483fd5b50346101e95760203660031901126101e957610407611c65565b61040f612166565b5f805160206125e483398151915280546001600160a01b0319166001600160a01b039283169081179091555f80516020612524833981519152549091167f38d16b8cac22d99fc7c124b9cd0de2d3fa1faef420bfe791d8c362d765e227008380a380f35b50346101e95760203660031901126101e95761048d611ded565b610495612166565b61049d612199565b6105385762ffffff8116620f42408110156105295760407f78b926af55587ebdaf37d4eff73ad580664765259c865f45005b004ce380fdaa9162ffffff5f805160206125048339815191525460b81c169082519182526020820152a15f80516020612504833981519152805462ffffff60b81b191660b89290921b62ffffff60b81b1691909117905580f35b6358d620b360e01b8352600483fd5b6348f5c3ed60e01b8252600482fd5b50346101e95760a03660031901126101e957610561611c65565b610569611c7b565b610571611c91565b6064356001600160a01b0381169390918483036107e357610590611ddd565b935f80516020612564833981519152549560ff8760401c16159667ffffffffffffffff8116801590816107db575b60011490816107d1575b1590816107c8575b506107b95767ffffffffffffffff1981166001175f80516020612564833981519152558761078d575b50813b1515908161077a575b81610770575b5080610764575b156107605761061f612458565b610627612458565b6001600160a01b0383161561074c579161068c61069192610696959461064c846123ed565b610654612458565b60018060a01b03166001600160601b0360a01b5f805160206125c48339815191525416175f805160206125c4833981519152556120d6565b6120a1565b612131565b5f80516020612504833981519152805465ffffffffffff60a01b191662ffffff60a01b60a09390931b929092169190911761027160bd1b1790555f80516020612484833981519152805462ffffff19166207a1201790556106f45780f35b68ff0000000000000000195f8051602061256483398151915254165f80516020612564833981519152557fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2602060405160018152a180f35b631e4fbdf760e01b87526004879052602487fd5b8680fd5b50868560020b13610612565b905015155f61060b565b6001600160a01b03841615159150610605565b68ffffffffffffffffff191668010000000000000001175f80516020612564833981519152555f6105f9565b63f92ee8a960e01b8952600489fd5b9050155f6105d0565b303b1591506105c8565b8991506105be565b8580fd5b50346101e95760203660031901126101e957610801611c65565b610809612166565b610811612199565b610538576001600160a01b0381169081156103b657610890907f7034f072d5ba3ef484ffcb654be46db3cf85bc8fc469b7c52b6f60bfda4c2a2f608060018060a01b035f805160206124a483398151915254165f80516020612544833981519152546040519188835260208301528660408301526060820152a16120a1565b7f167cccccc6e9b2892a740ec13fc1e51d3de8ea384f25bd87fee7412d588637e28280a280f35b50346101e957806003193601126101e9575f805160206125e4833981519152546040516001600160a01b039091168152602090f35b50346101e9576108fb36611e29565b505050509190505f805160206124e483398151915233036102fc5761091f826122ae565b60405163e1b4af6960e01b8152602090f35b50346101e95760e03660031901126101e95761094b611c65565b9060a03660231901126101e957610960611db7565b915f805160206124e48339815191523303610538575f80516020612504833981519152549260ff8460d01c16918215610ade575b508115610ac7575b508015610aa9575b8015610a73575b8015610a55575b8015610a39575b8015610a1c575b610a0e575060ff60d01b1916600160d01b175f805160206125048339815191525560a06109ec36611f33565b205f805160206125a483398151915255604051636e4c1aa760e11b8152602090f35b62820f3560e61b8152600490fd5b506084358060020b8091036102ef578260a01c60020b14156109c0565b5060643562ffffff81168091036102ef576280000014156109b9565b5060a4356001600160a01b038116908190036102ef573014156109b2565b506044356001600160a01b038116908181036103b657505f805160206125c4833981519152546001600160a01b031614156109ab565b506024356001600160a01b038116908181036103b6575015156109a4565b6001600160a01b038481169116141590505f61099c565b7f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b546001600160a01b039182169116141591505f610994565b50346101e957806003193601126101e957610b30612199565b6102fc575f80516020612544833981519152548181156101e9575f805160206125448339815191528190555f805160206124a4833981519152546040805160208101949094526001600160a01b03909116908301526102a49161028a816060810161027c565b50346101e957610ba536611e29565b505050509190505f805160206124e483398151915233036102fc57610bc9826122ae565b604051635b54587d60e11b8152602090f35b50346101e9576101603660031901126101e957610bf6611c65565b9060a03660231901126101e95760603660c31901126101e95761012435906101443567ffffffffffffffff81116102ef57610c35903690600401611cbb565b50505f805160206124e483398151915233036102fc578091610c5561227e565b60e4359082821290811580938194611061575b81611053575b506110445760801d600f0b8381121561103e57610c8a90611f03565b905b839260015f805160206125848339815191525c1480611030575b8061101b575b15610f475790610f36575b610f2757915b81610d37575b507ff5ddea8aa0b31d2becefdaa14417720f67edc7483593c867b6fd119b71ce78e860606040955f805160206125a48339815191525493610d02611ef4565b885190151581526020810196909652858801526001600160a01b031693a381519063b47b2fb160e01b8252600f0b6020820152f35b935f805160206124e48339815191523b15610f235784604051630ab714fb60e11b81523060048201528160248201528360448201528181606481835f805160206124e48339815191525af180156102e457610f0e575b50507f2e56a25c35d59c2694ee011409b46fff904d987d1387b392eba75bbdd2aa44876040620f4240610dd362ffffff5f80516020612484833981519152541686611f20565b04610dec815f805160206124c483398151915254611ed3565b5f805160206124c483398151915255610e1c610e088287611f13565b5f8051602061254483398151915254611ed3565b5f8051602061254483398151915255610e358186611f13565b82519182526020820152a160a0610e4b36611f33565b20610e55836123cc565b600f0b906f7fffffffffffffffffffffffffffffff198214610efa57916060917ff5ddea8aa0b31d2becefdaa14417720f67edc7483593c867b6fd119b71ce78e89360409862ffffff5f805160206125048339815191525460b81c16908a51938103600f0b84526020840152898301527fcad2240a6a0fe98d7dc71ceeae7ade75e73f32b8f370c1ac40a861bc081381bc8460018060a01b03851693a3955050610cc3565b634e487b7160e01b87526011600452602487fd5b81610f1891611eb1565b610f2357845f610d8d565b8480fd5b631b2c9ea560e31b8352600483fd5b50610f3f612312565b811415610cb7565b509150610f526122fa565b15610fcd57610f5f612312565b908215610fbe57610f6f826123a3565b925b838115610fad57610f829084611f13565b80925b03610f9e5715610f9757505b91610cbd565b9050610f91565b631b2c9ea560e31b8552600485fd5b610fb79084611ed3565b8092610f85565b610fc782612350565b92610f71565b919250801561100957610ff5610fe2836123a3565b925b8380935f14610ffb57505b926123cc565b92610cbd565b61100491611ed3565b610fef565b610ff561101583612350565b92610fe4565b855f805160206125848339815191525d610cac565b50611039611ef4565b610ca6565b90610c8c565b631b2c9ea560e31b8452600484fd5b905081600f0b14155f610c6e565b905061106b611ef4565b90610c68565b50346101e95761108036611d4d565b50505050509190505f805160206124e483398151915233036102fc576110a76040926122ae565b8151906327c18fbf60e21b82526020820152f35b50346101e957806003193601126101e957602062ffffff5f805160206125048339815191525460b81c16604051908152f35b50346101e95760203660031901126101e95760043567ffffffffffffffff81116102ef5761111f903690600401611cbb565b5f805160206124e483398151915292919233036105385782604091810103126101e9576020823592013560018060a01b0381168091036102ef575f805160206124e48339815191523b156102ef57604051637a94c56560e11b81523060048201528260248201528360448201528281606481835f805160206124e48339815191525af1801561126b57908391611276575b50505f805160206124e48339815191523b156102ef57604051630b0d9c0960e01b81528260048201528160248201528360448201528281606481835f805160206124e48339815191525af1801561126b57611256575b507f9493e5bbe4e8e0ac67284469a2d677403d0378a85a59e341d3abc433d0d9a209602061125294604051908152a260405190611244602083611eb1565b815260405191829182611dff565b0390f35b611261838092611eb1565b6102ef575f611206565b6040513d85823e3d90fd5b8161128091611eb1565b6102ef57815f6111b0565b50346101e957806003193601126101e9576020604051620f42408152f35b50346101e957806003193601126101e9575f80516020612524833981519152546040516001600160a01b039091168152602090f35b50346101e957806003193601126101e95760805f80516020612484833981519152545f805160206124c4833981519152545f8051602061254483398151915254906040519262ffffff8116845260018060a01b039060181c16602084015260408301526060820152f35b50346101e957806003193601126101e957602060ff5f805160206125048339815191525460d01c166040519015158152f35b50346101e957806003193601126101e9576020604051308152f35b50346101e957806003193601126101e9575f805160206125e483398151915254336001600160a01b03909116036113d2576113cf336123ed565b80f35b63118cdaa760e01b815233600452602490fd5b50346101e95760203660031901126101e9576113ff611ded565b611407612166565b61140f612199565b6105385762ffffff811690620f424082116103b6575f80516020612484833981519152805462ffffff191692909217918290556040805162ffffff92909216825260189290921c6001600160a01b031660208201527f6d0c1de0c5e67f35b6d052c3db15258f1669f9986196694a06195abd8eee4d269190a180f35b50346101e957806003193601126101e9576114a4612199565b6102fc575f805160206124848339815191525460181c6001600160a01b031633036102fc5760015f805160206125848339815191525d337f5629364a836c593b2463ccbc4ccfbd819343dfcc41d4fbf0cf80bb2f1eb9aa928280a280f35b50346101e957806003193601126101e95761151b612166565b5f805160206125e483398151915280546001600160a01b03199081169091555f805160206125248339815191528054918216905581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b346116b6576101003660031901126116b65761159b611c65565b5060a03660231901126116b6576115b0611db7565b506115b9611dcd565b505f805160206124e483398151915233036116ba576115d661227e565b5f805160206124e48339815191523b156116b657604051635275965160e01b81526001600160a01b03611607611c7b565b1660048201526001600160a01b0361161d611c91565b16602482015260643562ffffff81168091036116b6576044820152611640611ddd565b60020b606482015260a4356001600160a01b038116908190036116b65760848201525f60a48201525f8160c481835f805160206124e48339815191525af180156116ab5761169b575b604051636fe7e6eb60e01b8152602090f35b5f6116a591611eb1565b5f611689565b6040513d5f823e3d90fd5b5f80fd5b6348f5c3ed60e01b5f5260045ffd5b346116b6576116d736611d4d565b505050505090505f805160206124e483398151915233036116ba576116fb906122ae565b60408051633615df3f60e11b81525f6020820152f35b346116b6576101403660031901126116b65761172b611c65565b5060a03660231901126116b65760603660c31901126116b6576101243567ffffffffffffffff81116116b657611765903690600401611cbb565b50505f805160206124e483398151915233036116ba5761178361227e565b5f61178c6122fa565b806117fa575b6117c3575b6117a26060916123cc565b60801b604051906315d7892d60e21b82526020820152624000006040820152f35b5060606117a26117d1612312565b5f60e43512156117ec576117e4906123a3565b915050611797565b6117f590612350565b6117e4565b5060015f805160206125848339815191525c1480611819575b15611792565b50611822611ef4565b611813565b346116b65760a03660031901126116b657611840612228565b604051627eeac760e11b81523060048201525f6024820152476020826044815f805160206124e48339815191525afa9081156116ab575f91611988575b6118879250611ed3565b5f805160206125c4833981519152546040516370a0823160e01b815230600482015291906001600160a01b0316602083602481845afa9283156116ab575f93611954575b5060405190627eeac760e11b825230600483015260248201526020816044815f805160206124e48339815191525afa9081156116ab575f91611921575b5061191590604093611ed3565b82519182526020820152f35b90506020813d60201161194c575b8161193c60209383611eb1565b810103126116b657516040611908565b3d915061192f565b9092506020813d602011611980575b8161197060209383611eb1565b810103126116b6575191836118cb565b3d9150611963565b90506020823d6020116119b6575b816119a360209383611eb1565b810103126116b65761188791519061187d565b3d9150611996565b346116b6575f3660031901126116b6575f805160206124a4833981519152546040516001600160a01b039091168152602090f35b346116b6575f3660031901126116b65760205f805160206125a483398151915254604051908152f35b346116b65760a03660031901126116b657611a34612228565b604080515f81525f6020820152f35b346116b657611a5136611ce9565b50505090505f805160206124e483398151915233036116ba57611a73906122ae565b60405163259982e560e01b8152602090f35b346116b657611a9336611ce9565b50505090505f805160206124e483398151915233036116ba57611ab5906122ae565b60405163021d0ee760e41b8152602090f35b346116b65760203660031901126116b657611ae0611c65565b611ae8612166565b611af0612199565b6116ba57803b156116b65762ffffff7f6d0c1de0c5e67f35b6d052c3db15258f1669f9986196694a06195abd8eee4d2691611be65f8051602061248483398151915254917f7034f072d5ba3ef484ffcb654be46db3cf85bc8fc469b7c52b6f60bfda4c2a2f60805f805160206124c483398151915254604051906001825260018060a01b038760181c16602083015260018060a01b03851660408301526060820152a16301000000600160b81b03601882901b166301000000600160b81b03198416175f8051602061248483398151915255604080519490931662ffffff1684526001600160a01b031660208401528291820190565b0390a1005b346116b6575f3660031901126116b65760206040515f805160206124e48339815191528152f35b346116b65760203660031901126116b6576004359063ffffffff60e01b82168092036116b6576020916301ffc9a760e01b8114908115611c54575b5015158152f35b6303e83d9560e31b14905083611c4d565b600435906001600160a01b03821682036116b657565b602435906001600160a01b03821682036116b657565b604435906001600160a01b03821682036116b657565b35906001600160a01b03821682036116b657565b9181601f840112156116b65782359167ffffffffffffffff83116116b657602083818601950101116116b657565b906101606003198301126116b6576004356001600160a01b03811681036116b6579160a06023198201126116b657602491608060c3198301126116b65760c491610144359067ffffffffffffffff82116116b657611d4991600401611cbb565b9091565b906101a06003198301126116b6576004356001600160a01b03811681036116b6579160a06023198201126116b657602491608060c3198301126116b65760c49161014435916101643591610184359067ffffffffffffffff82116116b657611d4991600401611cbb565b60c435906001600160a01b03821682036116b657565b60e435908160020b82036116b657565b608435908160020b82036116b657565b6004359062ffffff821682036116b657565b602060409281835280519182918282860152018484015e5f828201840152601f01601f1916010190565b6101206003198201126116b6576004356001600160a01b03811681036116b6579160a06023198301126116b65760249160c4359160e43591610104359067ffffffffffffffff82116116b657611d4991600401611cbb565b60a0810190811067ffffffffffffffff821117611e9d57604052565b634e487b7160e01b5f52604160045260245ffd5b90601f8019910116810190811067ffffffffffffffff821117611e9d57604052565b91908201809211611ee057565b634e487b7160e01b5f52601160045260245ffd5b60c43580151581036116b65790565b600160ff1b8114611ee0575f0390565b91908203918211611ee057565b81810292918115918404141715611ee057565b60a09060231901126116b65760405190611f4c82611e81565b816024356001600160a01b03811681036116b65781526044356001600160a01b03811681036116b657602082015260643562ffffff811681036116b65760408201526084358060020b81036116b657606082015260a435906001600160a01b03821682036116b65760800152565b91908260a09103126116b657604051611fd281611e81565b8092611fdd81611ca7565b8252611feb60208201611ca7565b6020830152604081013562ffffff811681036116b65760408301526060810135908160020b82036116b6576080612029918193606086015201611ca7565b910152565b6020818303126116b65780519067ffffffffffffffff82116116b6570181601f820112156116b65780519067ffffffffffffffff8211611e9d5760405192612080601f8401601f191660200185611eb1565b828452602083830101116116b657815f9260208093018386015e8301015290565b60018060a01b03166001600160601b0360a01b5f805160206124a48339815191525416175f805160206124a483398151915255565b60018060a01b03166001600160601b0360a01b7f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b5416177f3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42b55565b60018060a01b03166001600160601b0360a01b5f805160206125048339815191525416175f8051602061250483398151915255565b5f80516020612524833981519152546001600160a01b0316330361218657565b63118cdaa760e01b5f523360045260245ffd5b60405163789add5560e11b81527fc090fc4683624cfc3884e9d8de5eca132f2d0ec062aff75d43c0465d5ceeab2360048201526020816024815f805160206124e48339815191525afa9081156116ab575f916121f6575b50151590565b90506020813d602011612220575b8161221160209383611eb1565b810103126116b657515f6121f0565b3d9150612204565b60ff5f805160206125048339815191525460d01c16158015612259575b61224b57565b62820f3560e61b5f5260045ffd5b5060a0612267366004611fba565b205f805160206125a4833981519152541415612245565b60ff5f805160206125048339815191525460d01c161580156122a05761224b57565b5060a0612267366024611fba565b60ff5f805160206125048339815191525460d01c16159081156122d3575b5061224b57565b60a091506122e2903690611fba565b205f805160206125a48339815191525414155f6122cc565b60c435801515908181036116b657505f60e435121490565b60e4355f811290815f1461234b5760010190600182128015821691151617611ee05761233d90611f03565b60018101809111611ee05790565b905090565b61237162ffffff5f805160206125048339815191525460b81c168092611f20565b81620f42400391620f42408311611ee057620f42401461238f570490565b634e487b7160e01b5f52601260045260245ffd5b6123c8620f42409162ffffff5f805160206125048339815191525460b81c1690611f20565b0490565b6001607f1b8110156123de57600f0b90565b6393dafdf160e01b5f5260045ffd5b5f805160206125e483398151915280546001600160a01b03199081169091555f8051602061252483398151915280549182166001600160a01b0393841690811790915591167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a3565b60ff5f805160206125648339815191525460401c161561247457565b631afcd79f60e31b5f5260045ffdfed904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d23fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42cd904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d30000000000000000000000008366a39cc670b4001a1121b8f6a443a643e409513fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42d9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300d904978369f91b34568598af239a2b206047776dc08c3118b78c6cdc04c018d4f0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a0080ffb0305068cb1de0eb7e7c38338903cb5ec248a95292e62dd534c6f46d33ed3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42e3fd1d1bb60cd3a075a4ed1786c3a40a7abbc17bf8ed9f7f7d47fde05f393d42a237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c00a26469706673582212205671bb6fede1864ad8ec89ab2a86683328e988ff41456c29a1eb50b5e707578e64736f6c634300081a0033",
+  "runtimeTemplateHash": "0x6cd4d064b20618060be82611ae8959bbe9ff13632380c6d79dcc576adb292b78",
+  "standardInput": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "metadata",
+            "storageLayout"
+          ]
+        }
+      },
+      "remappings": [
+        "@openzeppelin/contracts/=flatmin/lib/openzeppelin-contracts/contracts/",
+        "@uniswap/v4-core/=flatmin/lib/v4-core/",
+        "solmate/=flatmin/lib/v4-core/lib/solmate/"
+      ],
+      "viaIR": true
+    },
+    "sources": {
+      "flatmin/ClausBuybackVaultV2.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.24;\nabstract contract Context {\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n    function _msgData() internal view virtual returns (bytes calldata) {\n        return msg.data;\n    }\n    function _contextSuffixLength() internal view virtual returns (uint256) {\n        return 0;\n    }\n}\ninterface IERC20 {\n    event Transfer(address indexed from, address indexed to, uint256 value);\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n}\ntype Currency is address;\ninterface IHooks {}\nstruct PoolKey {\n    Currency currency0;\n    Currency currency1;\n    uint24 fee;\n    int24 tickSpacing;\n    IHooks hooks;\n}\ntype PoolId is bytes32;\nlibrary PoolIdLibrary {\n    function toId(PoolKey memory poolKey) internal pure returns (PoolId poolId) {\n        assembly (\"memory-safe\") {\n            poolId := keccak256(poolKey, 0xa0)\n        }\n    }\n}\nusing PoolIdLibrary for PoolKey global;\ninterface IPoolManager {\n    function extsload(bytes32 slot) external view returns (bytes32 value);\n    function exttload(bytes32 slot) external view returns (bytes32 value);\n}\nlibrary StateLibrary {\n    bytes32 public constant POOLS_SLOT = bytes32(uint256(6));\n    function getSlot0(IPoolManager manager, PoolId poolId)\n        internal\n        view\n        returns (uint160 sqrtPriceX96, int24 tick, uint24 protocolFee, uint24 lpFee)\n    {\n        bytes32 stateSlot = keccak256(abi.encodePacked(PoolId.unwrap(poolId), POOLS_SLOT));\n        bytes32 data = manager.extsload(stateSlot);\n        assembly (\"memory-safe\") {\n            sqrtPriceX96 := and(data, 0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff)\n            tick := signextend(2, shr(160, data))\n            protocolFee := and(shr(184, data), 0xffffff)\n            lpFee := and(shr(208, data), 0xffffff)\n        }\n    }\n}\nlibrary TransientStateLibrary {\n    bytes32 internal constant IS_UNLOCKED_SLOT = 0xc090fc4683624cfc3884e9d8de5eca132f2d0ec062aff75d43c0465d5ceeab23;\n    function isUnlocked(IPoolManager manager) internal view returns (bool) {\n        return manager.exttload(IS_UNLOCKED_SLOT) != 0x0;\n    }\n}\ninterface IV4Router {\n    struct ExactInputSingleParams {\n        PoolKey poolKey;\n        bool zeroForOne;\n        uint128 amountIn;\n        uint128 amountOutMinimum;\n        uint256 minHopPriceX36;\n        bytes hookData;\n    }\n}\nabstract contract Ownable is Context {\n    address private _owner;\n    error OwnableUnauthorizedAccount(address account);\n    error OwnableInvalidOwner(address owner);\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n    constructor(address initialOwner) {\n        if (initialOwner == address(0)) {\n            revert OwnableInvalidOwner(address(0));\n        }\n        _transferOwnership(initialOwner);\n    }\n    modifier onlyOwner() {\n        _checkOwner();\n        _;\n    }\n    function owner() public view virtual returns (address) {\n        return _owner;\n    }\n    function _checkOwner() internal view virtual {\n        if (owner() != _msgSender()) {\n            revert OwnableUnauthorizedAccount(_msgSender());\n        }\n    }\n    function renounceOwnership() public virtual onlyOwner {\n        _transferOwnership(address(0));\n    }\n    function transferOwnership(address newOwner) public virtual onlyOwner {\n        if (newOwner == address(0)) {\n            revert OwnableInvalidOwner(address(0));\n        }\n        _transferOwnership(newOwner);\n    }\n    function _transferOwnership(address newOwner) internal virtual {\n        address oldOwner = _owner;\n        _owner = newOwner;\n        emit OwnershipTransferred(oldOwner, newOwner);\n    }\n}\nabstract contract Ownable2Step is Ownable {\n    address private _pendingOwner;\n    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);\n    function pendingOwner() public view virtual returns (address) {\n        return _pendingOwner;\n    }\n    function transferOwnership(address newOwner) public virtual override onlyOwner {\n        _pendingOwner = newOwner;\n        emit OwnershipTransferStarted(owner(), newOwner);\n    }\n    function _transferOwnership(address newOwner) internal virtual override {\n        delete _pendingOwner;\n        super._transferOwnership(newOwner);\n    }\n    function acceptOwnership() public virtual {\n        address sender = _msgSender();\n        if (pendingOwner() != sender) {\n            revert OwnableUnauthorizedAccount(sender);\n        }\n        _transferOwnership(sender);\n    }\n}\ninterface IClausFeeHook {\n    function allocation() external view returns (uint24, address, uint256, uint256);\n    function claimLiquidityFees() external;\n    function claimTreasuryFees() external;\n    function markBuyback() external;\n}\ninterface IClausBurnable is IERC20 {\n    function burn(uint256 amount) external;\n}\ninterface IClausRouter {\n    function execute(bytes calldata commands, bytes[] calldata inputs, uint256 deadline) external payable;\n}\ninterface IClausClock {\n    function arbBlockNumber() external view returns (uint256);\n    function arbBlockHash(uint256 number) external view returns (bytes32);\n}\ncontract ClausBuybackVaultV2 is Ownable2Step {\n    using StateLibrary for IPoolManager;\n    using TransientStateLibrary for IPoolManager;\n    IPoolManager public constant MANAGER = IPoolManager(0x8366a39CC670B4001A1121B8F6A443A643e40951);\n    IClausRouter public constant ROUTER = IClausRouter(0x204FAca1764B154221e35c0d20aBb3c525710498);\n    IClausClock private constant CLOCK = IClausClock(address(100));\n    PoolKey public key;\n    address public keeper;\n    uint128 public maxBatch;\n    bool public enabled;\n    bool private busy;\n    uint256 public totalEthSpent;\n    uint256 public totalTokensBurned;\n    struct Plan {\n        uint128 amountIn;\n        uint128 minBuyOutput;\n        int24 quotedTick;\n        uint24 maxTickDrift;\n        uint256 quoteBlock;\n        bytes32 quoteBlockHash;\n        uint256 deadline;\n    }\n    event BuybackBurned(uint256 ethSpent, uint256 tokensBurned, uint256 supplyAfter);\n    event AutomationConfigured(address keeper, uint128 maxBatch, bool enabled);\n    event UnspentFeesRecovered(address indexed recipient, uint256 amount);\n    constructor(address administrator, PoolKey memory pool, address initialKeeper, uint128 initialMaxBatch)\n        Ownable(administrator)\n    {\n        require(block.chainid == 4663 && Currency.unwrap(pool.currency0) == address(0)\n            && Currency.unwrap(pool.currency1).code.length != 0\n            && address(pool.hooks).code.length != 0 && pool.tickSpacing > 0, \"Invalid pool\");\n        key = pool;\n        _configure(initialKeeper, initialMaxBatch, true);\n    }\n    modifier outsideSwap() {\n        require(!busy && !MANAGER.isUnlocked(), \"Busy\");\n        _;\n    }\n    function configure(address nextKeeper, uint128 nextMaxBatch, bool active) external onlyOwner outsideSwap {\n        _configure(nextKeeper, nextMaxBatch, active);\n    }\n    function _configure(address nextKeeper, uint128 nextMaxBatch, bool active) private {\n        require(!active || (nextKeeper != address(0) && nextMaxBatch > 0), \"Invalid automation\");\n        keeper = nextKeeper;\n        maxBatch = nextMaxBatch;\n        enabled = active;\n        emit AutomationConfigured(nextKeeper, nextMaxBatch, active);\n    }\n    function quoteAnchor() external view returns (uint256 number, bytes32 hash, uint256 timestamp) {\n        number = CLOCK.arbBlockNumber() - 1;\n        hash = CLOCK.arbBlockHash(number);\n        timestamp = block.timestamp;\n    }\n    function buyAndBurn(Plan calldata p) external outsideSwap returns (uint256 burned) {\n        require(enabled && (msg.sender == keeper || msg.sender == owner()), \"Keeper only\");\n        require(p.amountIn > 0 && p.amountIn <= maxBatch && p.minBuyOutput > 0, \"Invalid budget\");\n        uint256 currentBlock = CLOCK.arbBlockNumber();\n        require(p.deadline >= block.timestamp && p.deadline <= block.timestamp + 120\n            && p.quoteBlock < currentBlock && currentBlock - p.quoteBlock <= 128\n            && p.quoteBlockHash != bytes32(0) && CLOCK.arbBlockHash(p.quoteBlock) == p.quoteBlockHash, \"Stale plan\");\n        (, int24 tick,,) = MANAGER.getSlot0(key.toId());\n        int256 drift = int256(tick) - p.quotedTick;\n        if (drift < 0) drift = -drift;\n        require(p.maxTickDrift <= 100 && uint256(drift) <= p.maxTickDrift, \"Price moved\");\n        busy = true;\n        IClausFeeHook hook = IClausFeeHook(address(key.hooks));\n        (, address destination, uint256 owed,) = hook.allocation();\n        require(destination == address(this), \"Fee destination changed\");\n        if (owed > 0) hook.claimLiquidityFees();\n        require(p.amountIn <= address(this).balance, \"Insufficient fees\");\n        IClausBurnable token = IClausBurnable(Currency.unwrap(key.currency1));\n        uint256 balanceBefore = token.balanceOf(address(this));\n        uint256 supplyBefore = token.totalSupply();\n        bytes[] memory actions = new bytes[](3);\n        actions[0] = abi.encode(IV4Router.ExactInputSingleParams(key, true, p.amountIn, p.minBuyOutput, 0, \"\"));\n        actions[1] = abi.encode(address(0), uint256(p.amountIn));\n        actions[2] = abi.encode(address(token), address(this), uint256(0));\n        bytes[] memory inputs = new bytes[](1);\n        inputs[0] = abi.encode(hex\"060c0e\", actions);\n        hook.markBuyback();\n        ROUTER.execute{value:p.amountIn}(hex\"10\", inputs, p.deadline);\n        burned = token.balanceOf(address(this)) - balanceBefore;\n        require(burned >= p.minBuyOutput, \"Insufficient output\");\n        token.burn(burned);\n        require(token.balanceOf(address(this)) == balanceBefore\n            && token.totalSupply() + burned == supplyBefore, \"Burn mismatch\");\n        totalEthSpent += p.amountIn;\n        totalTokensBurned += burned;\n        (,,, uint256 treasuryOwed) = hook.allocation();\n        if (treasuryOwed > 0) hook.claimTreasuryFees();\n        busy = false;\n        emit BuybackBurned(p.amountIn, burned, token.totalSupply());\n    }\n    function recoverUnspentFees(address payable recipient, uint256 amount) external onlyOwner outsideSwap {\n        require(recipient != address(0), \"Invalid recipient\");\n        busy = true;\n        (bool ok,) = recipient.call{value:amount}(\"\");\n        require(ok, \"Recovery failed\");\n        busy = false;\n        emit UnspentFeesRecovered(recipient, amount);\n    }\n    receive() external payable {}\n}\n"
+      },
+      "flatmin/MigrationFeeHookV2.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.24;\ntype BeforeSwapDelta is int256;\nfunction toBeforeSwapDelta(int128 deltaSpecified, int128 deltaUnspecified)\n    pure\n    returns (BeforeSwapDelta beforeSwapDelta)\n{\n    assembly (\"memory-safe\") {\n        beforeSwapDelta := or(shl(128, deltaSpecified), and(sub(shl(128, 1), 1), deltaUnspecified))\n    }\n}\nlibrary BeforeSwapDeltaLibrary {\n    BeforeSwapDelta public constant ZERO_DELTA = BeforeSwapDelta.wrap(0);\n    function getSpecifiedDelta(BeforeSwapDelta delta) internal pure returns (int128 deltaSpecified) {\n        assembly (\"memory-safe\") {\n            deltaSpecified := sar(128, delta)\n        }\n    }\n    function getUnspecifiedDelta(BeforeSwapDelta delta) internal pure returns (int128 deltaUnspecified) {\n        assembly (\"memory-safe\") {\n            deltaUnspecified := signextend(15, delta)\n        }\n    }\n}\nlibrary CustomRevert {\n    error WrappedError(address target, bytes4 selector, bytes reason, bytes details);\n    function revertWith(bytes4 selector) internal pure {\n        assembly (\"memory-safe\") {\n            mstore(0, selector)\n            revert(0, 0x04)\n        }\n    }\n    function revertWith(bytes4 selector, address addr) internal pure {\n        assembly (\"memory-safe\") {\n            mstore(0, selector)\n            mstore(0x04, and(addr, 0xffffffffffffffffffffffffffffffffffffffff))\n            revert(0, 0x24)\n        }\n    }\n    function revertWith(bytes4 selector, int24 value) internal pure {\n        assembly (\"memory-safe\") {\n            mstore(0, selector)\n            mstore(0x04, signextend(2, value))\n            revert(0, 0x24)\n        }\n    }\n    function revertWith(bytes4 selector, uint160 value) internal pure {\n        assembly (\"memory-safe\") {\n            mstore(0, selector)\n            mstore(0x04, and(value, 0xffffffffffffffffffffffffffffffffffffffff))\n            revert(0, 0x24)\n        }\n    }\n    function revertWith(bytes4 selector, int24 value1, int24 value2) internal pure {\n        assembly (\"memory-safe\") {\n            let fmp := mload(0x40)\n            mstore(fmp, selector)\n            mstore(add(fmp, 0x04), signextend(2, value1))\n            mstore(add(fmp, 0x24), signextend(2, value2))\n            revert(fmp, 0x44)\n        }\n    }\n    function revertWith(bytes4 selector, uint160 value1, uint160 value2) internal pure {\n        assembly (\"memory-safe\") {\n            let fmp := mload(0x40)\n            mstore(fmp, selector)\n            mstore(add(fmp, 0x04), and(value1, 0xffffffffffffffffffffffffffffffffffffffff))\n            mstore(add(fmp, 0x24), and(value2, 0xffffffffffffffffffffffffffffffffffffffff))\n            revert(fmp, 0x44)\n        }\n    }\n    function revertWith(bytes4 selector, address value1, address value2) internal pure {\n        assembly (\"memory-safe\") {\n            let fmp := mload(0x40)\n            mstore(fmp, selector)\n            mstore(add(fmp, 0x04), and(value1, 0xffffffffffffffffffffffffffffffffffffffff))\n            mstore(add(fmp, 0x24), and(value2, 0xffffffffffffffffffffffffffffffffffffffff))\n            revert(fmp, 0x44)\n        }\n    }\n    function bubbleUpAndRevertWith(\n        address revertingContract,\n        bytes4 revertingFunctionSelector,\n        bytes4 additionalContext\n    ) internal pure {\n        bytes4 wrappedErrorSelector = WrappedError.selector;\n        assembly (\"memory-safe\") {\n            let encodedDataSize := mul(div(add(returndatasize(), 31), 32), 32)\n            let fmp := mload(0x40)\n            mstore(fmp, wrappedErrorSelector)\n            mstore(add(fmp, 0x04), and(revertingContract, 0xffffffffffffffffffffffffffffffffffffffff))\n            mstore(\n                add(fmp, 0x24),\n                and(revertingFunctionSelector, 0xffffffff00000000000000000000000000000000000000000000000000000000)\n            )\n            mstore(add(fmp, 0x44), 0x80)\n            mstore(add(fmp, 0x64), add(0xa0, encodedDataSize))\n            mstore(add(fmp, 0x84), returndatasize())\n            returndatacopy(add(fmp, 0xa4), 0, returndatasize())\n            mstore(add(fmp, add(0xa4, encodedDataSize)), 0x04)\n            mstore(\n                add(fmp, add(0xc4, encodedDataSize)),\n                and(additionalContext, 0xffffffff00000000000000000000000000000000000000000000000000000000)\n            )\n            revert(fmp, add(0xe4, encodedDataSize))\n        }\n    }\n}\ninterface IERC165 {\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\n}\ninterface IERC20 {\n    event Transfer(address indexed from, address indexed to, uint256 value);\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n}\ninterface IERC20Minimal {\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address recipient, uint256 amount) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 amount) external returns (bool);\n    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);\n    event Transfer(address indexed from, address indexed to, uint256 value);\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n}\ninterface IERC6909Claims {\n    event OperatorSet(address indexed owner, address indexed operator, bool approved);\n    event Approval(address indexed owner, address indexed spender, uint256 indexed id, uint256 amount);\n    event Transfer(address caller, address indexed from, address indexed to, uint256 indexed id, uint256 amount);\n    function balanceOf(address owner, uint256 id) external view returns (uint256 amount);\n    function allowance(address owner, address spender, uint256 id) external view returns (uint256 amount);\n    function isOperator(address owner, address spender) external view returns (bool approved);\n    function transfer(address receiver, uint256 id, uint256 amount) external returns (bool);\n    function transferFrom(address sender, address receiver, uint256 id, uint256 amount) external returns (bool);\n    function approve(address spender, uint256 id, uint256 amount) external returns (bool);\n    function setOperator(address operator, bool approved) external returns (bool);\n}\ninterface IExtsload {\n    function extsload(bytes32 slot) external view returns (bytes32 value);\n    function extsload(bytes32 startSlot, uint256 nSlots) external view returns (bytes32[] memory values);\n    function extsload(bytes32[] calldata slots) external view returns (bytes32[] memory values);\n}\ninterface IExttload {\n    function exttload(bytes32 slot) external view returns (bytes32 value);\n    function exttload(bytes32[] calldata slots) external view returns (bytes32[] memory values);\n}\nabstract contract Initializable {\n    struct InitializableStorage {\n        uint64 _initialized;\n        bool _initializing;\n    }\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\n    error InvalidInitialization();\n    error NotInitializing();\n    event Initialized(uint64 version);\n    modifier initializer() {\n        InitializableStorage storage $ = _getInitializableStorage();\n        bool isTopLevelCall = !$._initializing;\n        uint64 initialized = $._initialized;\n        bool initialSetup = initialized == 0 && isTopLevelCall;\n        bool construction = initialized == 1 && address(this).code.length == 0;\n        if (!initialSetup && !construction) {\n            revert InvalidInitialization();\n        }\n        $._initialized = 1;\n        if (isTopLevelCall) {\n            $._initializing = true;\n        }\n        _;\n        if (isTopLevelCall) {\n            $._initializing = false;\n            emit Initialized(1);\n        }\n    }\n    modifier reinitializer(uint64 version) {\n        InitializableStorage storage $ = _getInitializableStorage();\n        if ($._initializing || $._initialized >= version) {\n            revert InvalidInitialization();\n        }\n        $._initialized = version;\n        $._initializing = true;\n        _;\n        $._initializing = false;\n        emit Initialized(version);\n    }\n    modifier onlyInitializing() {\n        _checkInitializing();\n        _;\n    }\n    function _checkInitializing() internal view virtual {\n        if (!_isInitializing()) {\n            revert NotInitializing();\n        }\n    }\n    function _disableInitializers() internal virtual {\n        InitializableStorage storage $ = _getInitializableStorage();\n        if ($._initializing) {\n            revert InvalidInitialization();\n        }\n        if ($._initialized != type(uint64).max) {\n            $._initialized = type(uint64).max;\n            emit Initialized(type(uint64).max);\n        }\n    }\n    function _getInitializedVersion() internal view returns (uint64) {\n        return _getInitializableStorage()._initialized;\n    }\n    function _isInitializing() internal view returns (bool) {\n        return _getInitializableStorage()._initializing;\n    }\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\n        assembly {\n            $.slot := INITIALIZABLE_STORAGE\n        }\n    }\n}\nlibrary Lock {\n    bytes32 internal constant IS_UNLOCKED_SLOT = 0xc090fc4683624cfc3884e9d8de5eca132f2d0ec062aff75d43c0465d5ceeab23;\n    function unlock() internal {\n        assembly (\"memory-safe\") {\n            tstore(IS_UNLOCKED_SLOT, true)\n        }\n    }\n    function lock() internal {\n        assembly (\"memory-safe\") {\n            tstore(IS_UNLOCKED_SLOT, false)\n        }\n    }\n    function isUnlocked() internal view returns (bool unlocked) {\n        assembly (\"memory-safe\") {\n            unlocked := tload(IS_UNLOCKED_SLOT)\n        }\n    }\n}\nlibrary NonzeroDeltaCount {\n    bytes32 internal constant NONZERO_DELTA_COUNT_SLOT =\n        0x7d4b3164c6e45b97e7d87b7125a44c5828d005af88f9d751cfd78729c5d99a0b;\n    function read() internal view returns (uint256 count) {\n        assembly (\"memory-safe\") {\n            count := tload(NONZERO_DELTA_COUNT_SLOT)\n        }\n    }\n    function increment() internal {\n        assembly (\"memory-safe\") {\n            let count := tload(NONZERO_DELTA_COUNT_SLOT)\n            count := add(count, 1)\n            tstore(NONZERO_DELTA_COUNT_SLOT, count)\n        }\n    }\n    function decrement() internal {\n        assembly (\"memory-safe\") {\n            let count := tload(NONZERO_DELTA_COUNT_SLOT)\n            count := sub(count, 1)\n            tstore(NONZERO_DELTA_COUNT_SLOT, count)\n        }\n    }\n}\nabstract contract ContextUpgradeable is Initializable {\n    function __Context_init() internal onlyInitializing {\n    }\n    function __Context_init_unchained() internal onlyInitializing {\n    }\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n    function _msgData() internal view virtual returns (bytes calldata) {\n        return msg.data;\n    }\n    function _contextSuffixLength() internal view virtual returns (uint256) {\n        return 0;\n    }\n}\nlibrary SafeCast {\n    using CustomRevert for bytes4;\n    error SafeCastOverflow();\n    function toUint160(uint256 x) internal pure returns (uint160 y) {\n        y = uint160(x);\n        if (y != x) SafeCastOverflow.selector.revertWith();\n    }\n    function toUint128(uint256 x) internal pure returns (uint128 y) {\n        y = uint128(x);\n        if (x != y) SafeCastOverflow.selector.revertWith();\n    }\n    function toUint128(int128 x) internal pure returns (uint128 y) {\n        if (x < 0) SafeCastOverflow.selector.revertWith();\n        y = uint128(x);\n    }\n    function toInt128(int256 x) internal pure returns (int128 y) {\n        y = int128(x);\n        if (y != x) SafeCastOverflow.selector.revertWith();\n    }\n    function toInt256(uint256 x) internal pure returns (int256 y) {\n        y = int256(x);\n        if (y < 0) SafeCastOverflow.selector.revertWith();\n    }\n    function toInt128(uint256 x) internal pure returns (int128) {\n        if (x >= 1 << 127) SafeCastOverflow.selector.revertWith();\n        return int128(int256(x));\n    }\n}\ntype BalanceDelta is int256;\nusing {add as +, sub as -, eq as ==, neq as !=} for BalanceDelta global;\nusing BalanceDeltaLibrary for BalanceDelta global;\nusing SafeCast for int256;\nfunction toBalanceDelta(int128 _amount0, int128 _amount1) pure returns (BalanceDelta balanceDelta) {\n    assembly (\"memory-safe\") {\n        balanceDelta := or(shl(128, _amount0), and(sub(shl(128, 1), 1), _amount1))\n    }\n}\nfunction add(BalanceDelta a, BalanceDelta b) pure returns (BalanceDelta) {\n    int256 res0;\n    int256 res1;\n    assembly (\"memory-safe\") {\n        let a0 := sar(128, a)\n        let a1 := signextend(15, a)\n        let b0 := sar(128, b)\n        let b1 := signextend(15, b)\n        res0 := add(a0, b0)\n        res1 := add(a1, b1)\n    }\n    return toBalanceDelta(res0.toInt128(), res1.toInt128());\n}\nfunction sub(BalanceDelta a, BalanceDelta b) pure returns (BalanceDelta) {\n    int256 res0;\n    int256 res1;\n    assembly (\"memory-safe\") {\n        let a0 := sar(128, a)\n        let a1 := signextend(15, a)\n        let b0 := sar(128, b)\n        let b1 := signextend(15, b)\n        res0 := sub(a0, b0)\n        res1 := sub(a1, b1)\n    }\n    return toBalanceDelta(res0.toInt128(), res1.toInt128());\n}\nfunction eq(BalanceDelta a, BalanceDelta b) pure returns (bool) {\n    return BalanceDelta.unwrap(a) == BalanceDelta.unwrap(b);\n}\nfunction neq(BalanceDelta a, BalanceDelta b) pure returns (bool) {\n    return BalanceDelta.unwrap(a) != BalanceDelta.unwrap(b);\n}\nlibrary BalanceDeltaLibrary {\n    BalanceDelta public constant ZERO_DELTA = BalanceDelta.wrap(0);\n    function amount0(BalanceDelta balanceDelta) internal pure returns (int128 _amount0) {\n        assembly (\"memory-safe\") {\n            _amount0 := sar(128, balanceDelta)\n        }\n    }\n    function amount1(BalanceDelta balanceDelta) internal pure returns (int128 _amount1) {\n        assembly (\"memory-safe\") {\n            _amount1 := signextend(15, balanceDelta)\n        }\n    }\n}\ntype Currency is address;\nusing {greaterThan as >, lessThan as <, greaterThanOrEqualTo as >=, equals as ==} for Currency global;\nusing CurrencyLibrary for Currency global;\nfunction equals(Currency currency, Currency other) pure returns (bool) {\n    return Currency.unwrap(currency) == Currency.unwrap(other);\n}\nfunction greaterThan(Currency currency, Currency other) pure returns (bool) {\n    return Currency.unwrap(currency) > Currency.unwrap(other);\n}\nfunction lessThan(Currency currency, Currency other) pure returns (bool) {\n    return Currency.unwrap(currency) < Currency.unwrap(other);\n}\nfunction greaterThanOrEqualTo(Currency currency, Currency other) pure returns (bool) {\n    return Currency.unwrap(currency) >= Currency.unwrap(other);\n}\nlibrary CurrencyLibrary {\n    error NativeTransferFailed();\n    error ERC20TransferFailed();\n    Currency public constant ADDRESS_ZERO = Currency.wrap(address(0));\n    function transfer(Currency currency, address to, uint256 amount) internal {\n        bool success;\n        if (currency.isAddressZero()) {\n            assembly (\"memory-safe\") {\n                success := call(gas(), to, amount, 0, 0, 0, 0)\n            }\n            if (!success) {\n                CustomRevert.bubbleUpAndRevertWith(to, bytes4(0), NativeTransferFailed.selector);\n            }\n        } else {\n            assembly (\"memory-safe\") {\n                let fmp := mload(0x40)\n                mstore(fmp, 0xa9059cbb00000000000000000000000000000000000000000000000000000000)\n                mstore(add(fmp, 4), and(to, 0xffffffffffffffffffffffffffffffffffffffff))\n                mstore(add(fmp, 36), amount)\n                success :=\n                    and(\n                        or(and(eq(mload(0), 1), gt(returndatasize(), 31)), iszero(returndatasize())),\n                        call(gas(), currency, 0, fmp, 68, 0, 32)\n                    )\n                mstore(fmp, 0)\n                mstore(add(fmp, 0x20), 0)\n                mstore(add(fmp, 0x40), 0)\n            }\n            if (!success) {\n                CustomRevert.bubbleUpAndRevertWith(\n                    Currency.unwrap(currency), IERC20Minimal.transfer.selector, ERC20TransferFailed.selector\n                );\n            }\n        }\n    }\n    function balanceOfSelf(Currency currency) internal view returns (uint256) {\n        if (currency.isAddressZero()) {\n            return address(this).balance;\n        } else {\n            return IERC20Minimal(Currency.unwrap(currency)).balanceOf(address(this));\n        }\n    }\n    function balanceOf(Currency currency, address owner) internal view returns (uint256) {\n        if (currency.isAddressZero()) {\n            return owner.balance;\n        } else {\n            return IERC20Minimal(Currency.unwrap(currency)).balanceOf(owner);\n        }\n    }\n    function isAddressZero(Currency currency) internal pure returns (bool) {\n        return Currency.unwrap(currency) == Currency.unwrap(ADDRESS_ZERO);\n    }\n    function toId(Currency currency) internal pure returns (uint256) {\n        return uint160(Currency.unwrap(currency));\n    }\n    function fromId(uint256 id) internal pure returns (Currency) {\n        return Currency.wrap(address(uint160(id)));\n    }\n}\nabstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {\n    struct OwnableStorage {\n        address _owner;\n    }\n    bytes32 private constant OwnableStorageLocation = 0x9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300;\n    function _getOwnableStorage() private pure returns (OwnableStorage storage $) {\n        assembly {\n            $.slot := OwnableStorageLocation\n        }\n    }\n    error OwnableUnauthorizedAccount(address account);\n    error OwnableInvalidOwner(address owner);\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\n    function __Ownable_init(address initialOwner) internal onlyInitializing {\n        __Ownable_init_unchained(initialOwner);\n    }\n    function __Ownable_init_unchained(address initialOwner) internal onlyInitializing {\n        if (initialOwner == address(0)) {\n            revert OwnableInvalidOwner(address(0));\n        }\n        _transferOwnership(initialOwner);\n    }\n    modifier onlyOwner() {\n        _checkOwner();\n        _;\n    }\n    function owner() public view virtual returns (address) {\n        OwnableStorage storage $ = _getOwnableStorage();\n        return $._owner;\n    }\n    function _checkOwner() internal view virtual {\n        if (owner() != _msgSender()) {\n            revert OwnableUnauthorizedAccount(_msgSender());\n        }\n    }\n    function renounceOwnership() public virtual onlyOwner {\n        _transferOwnership(address(0));\n    }\n    function transferOwnership(address newOwner) public virtual onlyOwner {\n        if (newOwner == address(0)) {\n            revert OwnableInvalidOwner(address(0));\n        }\n        _transferOwnership(newOwner);\n    }\n    function _transferOwnership(address newOwner) internal virtual {\n        OwnableStorage storage $ = _getOwnableStorage();\n        address oldOwner = $._owner;\n        $._owner = newOwner;\n        emit OwnershipTransferred(oldOwner, newOwner);\n    }\n}\nlibrary CurrencyReserves {\n    using CustomRevert for bytes4;\n    bytes32 constant RESERVES_OF_SLOT = 0x1e0745a7db1623981f0b2a5d4232364c00787266eb75ad546f190e6cebe9bd95;\n    bytes32 constant CURRENCY_SLOT = 0x27e098c505d44ec3574004bca052aabf76bd35004c182099d8c575fb238593b9;\n    function getSyncedCurrency() internal view returns (Currency currency) {\n        assembly (\"memory-safe\") {\n            currency := tload(CURRENCY_SLOT)\n        }\n    }\n    function resetCurrency() internal {\n        assembly (\"memory-safe\") {\n            tstore(CURRENCY_SLOT, 0)\n        }\n    }\n    function syncCurrencyAndReserves(Currency currency, uint256 value) internal {\n        assembly (\"memory-safe\") {\n            tstore(CURRENCY_SLOT, and(currency, 0xffffffffffffffffffffffffffffffffffffffff))\n            tstore(RESERVES_OF_SLOT, value)\n        }\n    }\n    function getSyncedReserves() internal view returns (uint256 value) {\n        assembly (\"memory-safe\") {\n            value := tload(RESERVES_OF_SLOT)\n        }\n    }\n}\nabstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {\n    struct Ownable2StepStorage {\n        address _pendingOwner;\n    }\n    bytes32 private constant Ownable2StepStorageLocation = 0x237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c00;\n    function _getOwnable2StepStorage() private pure returns (Ownable2StepStorage storage $) {\n        assembly {\n            $.slot := Ownable2StepStorageLocation\n        }\n    }\n    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);\n    function __Ownable2Step_init() internal onlyInitializing {\n    }\n    function __Ownable2Step_init_unchained() internal onlyInitializing {\n    }\n    function pendingOwner() public view virtual returns (address) {\n        Ownable2StepStorage storage $ = _getOwnable2StepStorage();\n        return $._pendingOwner;\n    }\n    function transferOwnership(address newOwner) public virtual override onlyOwner {\n        Ownable2StepStorage storage $ = _getOwnable2StepStorage();\n        $._pendingOwner = newOwner;\n        emit OwnershipTransferStarted(owner(), newOwner);\n    }\n    function _transferOwnership(address newOwner) internal virtual override {\n        Ownable2StepStorage storage $ = _getOwnable2StepStorage();\n        delete $._pendingOwner;\n        super._transferOwnership(newOwner);\n    }\n    function acceptOwnership() public virtual {\n        address sender = _msgSender();\n        if (pendingOwner() != sender) {\n            revert OwnableUnauthorizedAccount(sender);\n        }\n        _transferOwnership(sender);\n    }\n}\ninterface IHooks {\n    function beforeInitialize(address sender, PoolKey calldata key, uint160 sqrtPriceX96) external returns (bytes4);\n    function afterInitialize(address sender, PoolKey calldata key, uint160 sqrtPriceX96, int24 tick)\n        external\n        returns (bytes4);\n    function beforeAddLiquidity(\n        address sender,\n        PoolKey calldata key,\n        ModifyLiquidityParams calldata params,\n        bytes calldata hookData\n    ) external returns (bytes4);\n    function afterAddLiquidity(\n        address sender,\n        PoolKey calldata key,\n        ModifyLiquidityParams calldata params,\n        BalanceDelta delta,\n        BalanceDelta feesAccrued,\n        bytes calldata hookData\n    ) external returns (bytes4, BalanceDelta);\n    function beforeRemoveLiquidity(\n        address sender,\n        PoolKey calldata key,\n        ModifyLiquidityParams calldata params,\n        bytes calldata hookData\n    ) external returns (bytes4);\n    function afterRemoveLiquidity(\n        address sender,\n        PoolKey calldata key,\n        ModifyLiquidityParams calldata params,\n        BalanceDelta delta,\n        BalanceDelta feesAccrued,\n        bytes calldata hookData\n    ) external returns (bytes4, BalanceDelta);\n    function beforeSwap(address sender, PoolKey calldata key, SwapParams calldata params, bytes calldata hookData)\n        external\n        returns (bytes4, BeforeSwapDelta, uint24);\n    function afterSwap(\n        address sender,\n        PoolKey calldata key,\n        SwapParams calldata params,\n        BalanceDelta delta,\n        bytes calldata hookData\n    ) external returns (bytes4, int128);\n    function beforeDonate(\n        address sender,\n        PoolKey calldata key,\n        uint256 amount0,\n        uint256 amount1,\n        bytes calldata hookData\n    ) external returns (bytes4);\n    function afterDonate(\n        address sender,\n        PoolKey calldata key,\n        uint256 amount0,\n        uint256 amount1,\n        bytes calldata hookData\n    ) external returns (bytes4);\n}\ntype PoolId is bytes32;\nlibrary PoolIdLibrary {\n    function toId(PoolKey memory poolKey) internal pure returns (PoolId poolId) {\n        assembly (\"memory-safe\") {\n            poolId := keccak256(poolKey, 0xa0)\n        }\n    }\n}\nusing PoolIdLibrary for PoolKey global;\nstruct PoolKey {\n    Currency currency0;\n    Currency currency1;\n    uint24 fee;\n    int24 tickSpacing;\n    IHooks hooks;\n}\nstruct ModifyLiquidityParams {\n    int24 tickLower;\n    int24 tickUpper;\n    int256 liquidityDelta;\n    bytes32 salt;\n}\nstruct SwapParams {\n    bool zeroForOne;\n    int256 amountSpecified;\n    uint160 sqrtPriceLimitX96;\n}\ninterface IProtocolFees {\n    error ProtocolFeeTooLarge(uint24 fee);\n    error InvalidCaller();\n    error ProtocolFeeCurrencySynced();\n    event ProtocolFeeControllerUpdated(address indexed protocolFeeController);\n    event ProtocolFeeUpdated(PoolId indexed id, uint24 protocolFee);\n    function protocolFeesAccrued(Currency currency) external view returns (uint256 amount);\n    function setProtocolFee(PoolKey memory key, uint24 newProtocolFee) external;\n    function setProtocolFeeController(address controller) external;\n    function collectProtocolFees(address recipient, Currency currency, uint256 amount)\n        external\n        returns (uint256 amountCollected);\n    function protocolFeeController() external view returns (address);\n}\ninterface IHookStats is IERC165 {\n    function getReserves(PoolKey calldata key) external view returns (uint256 amount0, uint256 amount1);\n    function getEffectiveLiquidity(PoolKey calldata key) external view returns (uint256 amount0, uint256 amount1);\n    function hook() external view returns (address);\n}\ninterface IPoolManager is IProtocolFees, IERC6909Claims, IExtsload, IExttload {\n    error CurrencyNotSettled();\n    error PoolNotInitialized();\n    error AlreadyUnlocked();\n    error ManagerLocked();\n    error TickSpacingTooLarge(int24 tickSpacing);\n    error TickSpacingTooSmall(int24 tickSpacing);\n    error CurrenciesOutOfOrderOrEqual(address currency0, address currency1);\n    error UnauthorizedDynamicLPFeeUpdate();\n    error SwapAmountCannotBeZero();\n    error NonzeroNativeValue();\n    error MustClearExactPositiveDelta();\n    event Initialize(\n        PoolId indexed id,\n        Currency indexed currency0,\n        Currency indexed currency1,\n        uint24 fee,\n        int24 tickSpacing,\n        IHooks hooks,\n        uint160 sqrtPriceX96,\n        int24 tick\n    );\n    event ModifyLiquidity(\n        PoolId indexed id, address indexed sender, int24 tickLower, int24 tickUpper, int256 liquidityDelta, bytes32 salt\n    );\n    event Swap(\n        PoolId indexed id,\n        address indexed sender,\n        int128 amount0,\n        int128 amount1,\n        uint160 sqrtPriceX96,\n        uint128 liquidity,\n        int24 tick,\n        uint24 fee\n    );\n    event Donate(PoolId indexed id, address indexed sender, uint256 amount0, uint256 amount1);\n    function unlock(bytes calldata data) external returns (bytes memory);\n    function initialize(PoolKey memory key, uint160 sqrtPriceX96) external returns (int24 tick);\n    function modifyLiquidity(PoolKey memory key, ModifyLiquidityParams memory params, bytes calldata hookData)\n        external\n        returns (BalanceDelta callerDelta, BalanceDelta feesAccrued);\n    function swap(PoolKey memory key, SwapParams memory params, bytes calldata hookData)\n        external\n        returns (BalanceDelta swapDelta);\n    function donate(PoolKey memory key, uint256 amount0, uint256 amount1, bytes calldata hookData)\n        external\n        returns (BalanceDelta);\n    function sync(Currency currency) external;\n    function take(Currency currency, address to, uint256 amount) external;\n    function settle() external payable returns (uint256 paid);\n    function settleFor(address recipient) external payable returns (uint256 paid);\n    function clear(Currency currency, uint256 amount) external;\n    function mint(address to, uint256 id, uint256 amount) external;\n    function burn(address from, uint256 id, uint256 amount) external;\n    function updateDynamicLPFee(PoolKey memory key, uint24 newDynamicLPFee) external;\n}\nlibrary TransientStateLibrary {\n    function getSyncedReserves(IPoolManager manager) internal view returns (uint256) {\n        if (getSyncedCurrency(manager).isAddressZero()) return 0;\n        return uint256(manager.exttload(CurrencyReserves.RESERVES_OF_SLOT));\n    }\n    function getSyncedCurrency(IPoolManager manager) internal view returns (Currency) {\n        return Currency.wrap(address(uint160(uint256(manager.exttload(CurrencyReserves.CURRENCY_SLOT)))));\n    }\n    function getNonzeroDeltaCount(IPoolManager manager) internal view returns (uint256) {\n        return uint256(manager.exttload(NonzeroDeltaCount.NONZERO_DELTA_COUNT_SLOT));\n    }\n    function currencyDelta(IPoolManager manager, address target, Currency currency) internal view returns (int256) {\n        bytes32 key;\n        assembly (\"memory-safe\") {\n            mstore(0, and(target, 0xffffffffffffffffffffffffffffffffffffffff))\n            mstore(32, and(currency, 0xffffffffffffffffffffffffffffffffffffffff))\n            key := keccak256(0, 64)\n        }\n        return int256(uint256(manager.exttload(key)));\n    }\n    function isUnlocked(IPoolManager manager) internal view returns (bool) {\n        return manager.exttload(Lock.IS_UNLOCKED_SLOT) != 0x0;\n    }\n}\ncontract MigrationFeeHookV2 is Ownable2StepUpgradeable, IHooks, IHookStats {\n    using SafeCast for uint256;\n    using TransientStateLibrary for IPoolManager;\n    IPoolManager public constant MANAGER = IPoolManager(0x8366a39CC670B4001A1121B8F6A443A643e40951);\n    uint24 public constant DENOMINATOR = 1_000_000;\n    struct Settings {\n        address token;\n        address launcher;\n        address recipient;\n        uint160 openingPrice;\n        int24 spacing;\n        uint24 feePips;\n        bool launched;\n        bytes32 poolId;\n    }\n    bytes32 private constant SETTINGS_SLOT = keccak256(\"test.hook.settings.v1\");\n    error InvalidPool();\n    error InvalidFee();\n    error InvalidCaller();\n    error PartialFill();\n    event FeeChanged(uint24 previousPips, uint24 feePips);\n    event FeeRecipientChanged(address indexed recipient);\n    event LaunchConfigured(address indexed launcher, uint160 openingPrice);\n    event SwapFee(bytes32 indexed poolId, address indexed sender, bool buy, uint256 grossEth, uint256 feeEth);\n    event HookSwap(PoolId indexed id, address indexed sender, int128 amount0, int128 amount1, uint24 swapFee);\n    event FeesClaimed(address indexed recipient, uint256 amount);\n    bytes32 private constant EXEMPT_SLOT = keccak256(\"claus.buyback.exempt.v1\");\n    event BuybackMarked(address indexed vault);\n    constructor() { _disableInitializers(); }\n    function markBuyback() external outsideSwap {\n        if (msg.sender != _allocation().vault) revert InvalidCaller();\n        bytes32 s = EXEMPT_SLOT; assembly { tstore(s, 1) }\n        emit BuybackMarked(msg.sender);\n    }\n    function _exempt(SwapParams calldata p) private view returns (bool e) {\n        bytes32 s = EXEMPT_SLOT; uint256 v; assembly { v := tload(s) }\n        e = v == 1 && p.zeroForOne;\n    }\n    modifier onlyManager() { if (msg.sender != address(MANAGER)) revert InvalidCaller(); _; }\n    modifier outsideSwap() { if (MANAGER.isUnlocked()) revert InvalidCaller(); _; }\n    function initialize(address administrator, address token_, address launcher_, uint160 price, int24 spacing)\n        external initializer\n    {\n        require(token_.code.length != 0 && launcher_ != address(0) && price != 0 && spacing > 0);\n        __Ownable_init(administrator);\n        __Ownable2Step_init();\n        Settings storage s = _settings();\n        s.token = token_; s.launcher = launcher_; s.recipient = administrator;\n        s.openingPrice = price; s.spacing = spacing; s.feePips = 20_000;\n        _allocation().liquiditySharePips = 500_000;\n    }\n    function feePips() external view returns (uint24) { return _settings().feePips; }\n    function feeRecipient() external view returns (address) { return _settings().recipient; }\n    function poolId() external view returns (bytes32) { return _settings().poolId; }\n    function launched() external view returns (bool) { return _settings().launched; }\n    function token() external view returns (address) { return _settings().token; }\n    function hook() external view returns (address) { return address(this); }\n    function setFee(uint24 value) external onlyOwner outsideSwap {\n        if (value >= DENOMINATOR) revert InvalidFee();\n        Settings storage s = _settings();\n        emit FeeChanged(s.feePips, value); s.feePips = value;\n    }\n    function setFeeRecipient(address value) external onlyOwner outsideSwap {\n        require(value != address(0));\n        emit AccruedFeesRedirected(false,_settings().recipient,value,_allocation().treasuryOwed);\n        _settings().recipient = value; emit FeeRecipientChanged(value);\n    }\n    function configureLaunch(address launcher_, uint160 price) external onlyOwner outsideSwap {\n        Settings storage s = _settings();\n        require(!s.launched && launcher_ != address(0) && price != 0);\n        s.launcher = launcher_; s.openingPrice = price;\n        emit LaunchConfigured(launcher_, price);\n    }\n    function beforeInitialize(address sender, PoolKey calldata key, uint160 price)\n        external onlyManager returns (bytes4)\n    {\n        Settings storage s = _settings();\n        if (s.launched || sender != s.launcher || price != s.openingPrice\n            || Currency.unwrap(key.currency0) != address(0) || Currency.unwrap(key.currency1) != s.token\n            || address(key.hooks) != address(this) || key.fee != 0x800000 || key.tickSpacing != s.spacing)\n            revert InvalidPool();\n        s.launched = true; s.poolId = PoolId.unwrap(key.toId());\n        return IHooks.beforeInitialize.selector;\n    }\n    function afterInitialize(address, PoolKey calldata key, uint160, int24)\n        external onlyManager returns (bytes4)\n    {\n        _checkPool(key); MANAGER.updateDynamicLPFee(key, 0);\n        return IHooks.afterInitialize.selector;\n    }\n    function beforeSwap(address, PoolKey calldata key, SwapParams calldata p, bytes calldata)\n        external onlyManager returns (bytes4, BeforeSwapDelta, uint24)\n    {\n        _checkPool(key);\n        uint256 fee;\n        if (_nativeSpecified(p) && !_exempt(p)) {\n            uint256 requested = _specified(p);\n            fee = p.amountSpecified < 0 ? _grossFee(requested) : _netFee(requested);\n        }\n        return (IHooks.beforeSwap.selector, toBeforeSwapDelta(fee.toInt128(), 0), 0x400000);\n    }\n    function afterSwap(address sender, PoolKey calldata key, SwapParams calldata p, BalanceDelta delta, bytes calldata)\n        external onlyManager returns (bytes4, int128 returnedFee)\n    {\n        _checkPool(key);\n        bool exactInput = p.amountSpecified < 0;\n        if (!exactInput && p.zeroForOne && int256(delta.amount1()) != p.amountSpecified) revert PartialFill();\n        int128 ethDelta = delta.amount0();\n        uint256 nativeAmount = ethDelta < 0 ? uint256(-int256(ethDelta)) : uint256(int256(ethDelta));\n        uint256 fee; uint256 gross;\n        bool exempt = _exempt(p);\n        if (exempt) { bytes32 s = EXEMPT_SLOT; assembly { tstore(s, 0) } }\n        if (exempt) {\n            if (!exactInput || nativeAmount != _specified(p)) revert PartialFill();\n            gross = nativeAmount;\n        } else if (_nativeSpecified(p)) {\n            uint256 requested = _specified(p);\n            fee = exactInput ? _grossFee(requested) : _netFee(requested);\n            uint256 expected = exactInput ? requested - fee : requested + fee;\n            if (nativeAmount != expected) revert PartialFill();\n            gross = exactInput ? requested : expected;\n        } else {\n            fee = exactInput ? _grossFee(nativeAmount) : _netFee(nativeAmount);\n            gross = exactInput ? nativeAmount : nativeAmount + fee;\n            returnedFee = fee.toInt128();\n        }\n        if (fee != 0) {\n            MANAGER.mint(address(this), 0, fee);\n            Allocation storage a=_allocation();\n            uint256 lp=fee*a.liquiditySharePips/DENOMINATOR;\n            a.liquidityOwed+=lp;a.treasuryOwed+=fee-lp;\n            emit FeeAllocated(lp,fee-lp);\n            emit HookSwap(key.toId(), sender, -fee.toInt128(), 0, _settings().feePips);\n        }\n        emit SwapFee(_settings().poolId, sender, p.zeroForOne, gross, fee);\n        return (IHooks.afterSwap.selector, returnedFee);\n    }\n    struct Allocation {uint24 liquiditySharePips;address vault;uint256 liquidityOwed;uint256 treasuryOwed;}\n    bytes32 private constant ALLOCATION_SLOT=keccak256(\"claus.migration.fee-allocation.v1\");\n    event FeeAllocated(uint256 liquidity,uint256 treasury);\n    event AllocationChanged(uint24 liquiditySharePips,address vault);\n    event AccruedFeesRedirected(bool liquidity,address previous,address destination,uint256 accrued);\n    function allocation() external view returns(uint24,address,uint256,uint256){\n        Allocation storage a=_allocation();return(a.liquiditySharePips,a.vault,a.liquidityOwed,a.treasuryOwed);\n    }\n    function setLiquidityShare(uint24 share) external onlyOwner outsideSwap {\n        require(share<=DENOMINATOR);_allocation().liquiditySharePips=share;\n        emit AllocationChanged(share,_allocation().vault);\n    }\n    function setLiquidityVault(address vault) external onlyOwner outsideSwap {\n        require(vault.code.length!=0);\n        emit AccruedFeesRedirected(true,_allocation().vault,vault,_allocation().liquidityOwed);\n        _allocation().vault=vault;emit AllocationChanged(_allocation().liquiditySharePips,vault);\n    }\n    function claimLiquidityFees() external outsideSwap {\n        Allocation storage a=_allocation();uint256 amount=a.liquidityOwed;\n        require(a.vault!=address(0) && amount!=0);a.liquidityOwed=0;\n        MANAGER.unlock(abi.encode(amount,a.vault));\n    }\n    function claimTreasuryFees() external outsideSwap {\n        Allocation storage a=_allocation();uint256 amount=a.treasuryOwed;\n        require(amount!=0);a.treasuryOwed=0;\n        MANAGER.unlock(abi.encode(amount,_settings().recipient));\n    }\n    function unlockCallback(bytes calldata data) external onlyManager returns(bytes memory){\n        (uint256 amount,address recipient)=abi.decode(data,(uint256,address));\n        MANAGER.burn(address(this),0,amount);MANAGER.take(Currency.wrap(address(0)),recipient,amount);\n        emit FeesClaimed(recipient,amount);return \"\";\n    }\n    function _allocation() private pure returns(Allocation storage a){bytes32 slot=ALLOCATION_SLOT;assembly{a.slot:=slot}}\n    function supportsInterface(bytes4 id) external pure returns (bool) {\n        return id == type(IERC165).interfaceId || id == type(IHookStats).interfaceId;\n    }\n    function getReserves(PoolKey calldata key) external view returns (uint256, uint256) {\n        _checkPool(key);\n        return (address(this).balance + MANAGER.balanceOf(address(this), 0),\n            IERC20(_settings().token).balanceOf(address(this))\n                + MANAGER.balanceOf(address(this), uint256(uint160(_settings().token))));\n    }\n    function getEffectiveLiquidity(PoolKey calldata key) external view returns (uint256, uint256) {\n        _checkPool(key); return (0, 0);\n    }\n    function beforeAddLiquidity(address, PoolKey calldata key, ModifyLiquidityParams calldata, bytes calldata)\n        external onlyManager returns (bytes4) { _checkPool(key); return IHooks.beforeAddLiquidity.selector; }\n    function afterAddLiquidity(address, PoolKey calldata key, ModifyLiquidityParams calldata, BalanceDelta, BalanceDelta, bytes calldata)\n        external onlyManager returns (bytes4, BalanceDelta) { _checkPool(key); return (IHooks.afterAddLiquidity.selector, BalanceDelta.wrap(0)); }\n    function beforeRemoveLiquidity(address, PoolKey calldata key, ModifyLiquidityParams calldata, bytes calldata)\n        external onlyManager returns (bytes4) { _checkPool(key); return IHooks.beforeRemoveLiquidity.selector; }\n    function afterRemoveLiquidity(address, PoolKey calldata key, ModifyLiquidityParams calldata, BalanceDelta, BalanceDelta, bytes calldata)\n        external onlyManager returns (bytes4, BalanceDelta) { _checkPool(key); return (IHooks.afterRemoveLiquidity.selector, BalanceDelta.wrap(0)); }\n    function beforeDonate(address, PoolKey calldata key, uint256, uint256, bytes calldata)\n        external onlyManager returns (bytes4) { _checkPool(key); return IHooks.beforeDonate.selector; }\n    function afterDonate(address, PoolKey calldata key, uint256, uint256, bytes calldata)\n        external onlyManager returns (bytes4) { _checkPool(key); return IHooks.afterDonate.selector; }\n    function _grossFee(uint256 gross) private view returns (uint256) { return gross * _settings().feePips / DENOMINATOR; }\n    function _netFee(uint256 net) private view returns (uint256) {\n        uint256 rate = _settings().feePips;\n        return net * rate / (DENOMINATOR - rate);\n    }\n    function _nativeSpecified(SwapParams calldata p) private pure returns (bool) { return (p.amountSpecified < 0) == p.zeroForOne; }\n    function _specified(SwapParams calldata p) private pure returns (uint256) {\n        return p.amountSpecified < 0 ? uint256(-(p.amountSpecified + 1)) + 1 : uint256(p.amountSpecified);\n    }\n    function _checkPool(PoolKey calldata key) private view {\n        if (!_settings().launched || PoolId.unwrap(key.toId()) != _settings().poolId) revert InvalidPool();\n    }\n    function _settings() private pure returns (Settings storage s) {\n        bytes32 slot = SETTINGS_SLOT;\n        assembly { s.slot := slot }\n    }\n}\n"
+      }
+    }
+  },
+  "status": "compiled",
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
