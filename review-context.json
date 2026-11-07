@@ -1,0 +1,251 @@
+{
+  "chainId": 4663,
+  "sourceSnapshot": "sha256:ab2355c0e854574a3a622eb0378553c9f3de4993d3607f2fab2b7307938be49b",
+  "compiler": "0.8.26",
+  "evmVersion": "cancun",
+  "viaIR": true,
+  "optimizerRuns": 200,
+  "baselineProofs": {
+    "hook": {
+      "at": "2026-11-07T19:34:23.823Z",
+      "address": "0x23Efc76Dbb3f340732929d28F4244b3d1C703EB7",
+      "compiler": "0.8.26+commit.8a97fa7a.Emscripten.clang",
+      "settings": {
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode.object",
+              "storageLayout"
+            ]
+          }
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=flatmin/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=flatmin/lib/v4-core/",
+          "solmate/=flatmin/lib/v4-core/lib/solmate/"
+        ],
+        "viaIR": true
+      },
+      "liveRuntimeHash": "0x3db6ac150889f91be049199035adc43ea66440826ef1dc107ba0a7a88c7e25a0",
+      "compiledRuntimeHash": "0xf5b84de7cf59ddd4c942056944ac4d5a106b4aa36ad79b13057c8c5013383ebc",
+      "metadataStrippedEqual": true,
+      "sourceSha256": "a2bfeadb0f095bb6939a45f3665ea352c103fe197d1699f111f20a5c77d1d425",
+      "storageLayout": {
+        "storage": [],
+        "types": null
+      }
+    },
+    "vault": {
+      "at": "2026-11-07T19:35:10.645Z",
+      "address": "0x6be6888c5f8b4a8315eb379ef96d5eeb8e970dcd",
+      "compiler": "0.8.26+commit.8a97fa7a.Emscripten.clang",
+      "settings": {
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "evm.deployedBytecode.object",
+              "storageLayout"
+            ]
+          }
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=flatmin/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=flatmin/lib/v4-core/",
+          "solmate/=flatmin/lib/v4-core/lib/solmate/"
+        ],
+        "viaIR": true
+      },
+      "liveRuntimeHash": "0xa8f735cfd659cd1147df7d171d3e020f60087e8aee525967c93838440d1ec3eb",
+      "compiledRuntimeHash": "0xdf93c21f390809e7e5bf93cdd4432994bb9e32be9c9b78843e5ad5517c62e1d5",
+      "metadataStrippedEqual": true,
+      "sourceSha256": "d0633e178b537c1920e7272c69ba92976b0ec8ddb5bc2e75e4c2188b079492c4",
+      "storageLayout": {
+        "storage": [
+          {
+            "astId": 233,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "_owner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 367,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "_pendingOwner",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 527,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "key",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_struct(PoolKey)112_storage"
+          },
+          {
+            "astId": 529,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "keeper",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address"
+          },
+          {
+            "astId": 531,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "maxBatch",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint128"
+          },
+          {
+            "astId": 533,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "enabled",
+            "offset": 16,
+            "slot": "6",
+            "type": "t_bool"
+          },
+          {
+            "astId": 535,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "busy",
+            "offset": 17,
+            "slot": "6",
+            "type": "t_bool"
+          },
+          {
+            "astId": 537,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "totalEthSpent",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 539,
+            "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+            "label": "totalTokensBurned",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "encoding": "inplace",
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "encoding": "inplace",
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IHooks)98": {
+            "encoding": "inplace",
+            "label": "contract IHooks",
+            "numberOfBytes": "20"
+          },
+          "t_int24": {
+            "encoding": "inplace",
+            "label": "int24",
+            "numberOfBytes": "3"
+          },
+          "t_struct(PoolKey)112_storage": {
+            "encoding": "inplace",
+            "label": "struct PoolKey",
+            "members": [
+              {
+                "astId": 101,
+                "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+                "label": "currency0",
+                "offset": 0,
+                "slot": "0",
+                "type": "t_userDefinedValueType(Currency)97"
+              },
+              {
+                "astId": 104,
+                "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+                "label": "currency1",
+                "offset": 0,
+                "slot": "1",
+                "type": "t_userDefinedValueType(Currency)97"
+              },
+              {
+                "astId": 106,
+                "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+                "label": "fee",
+                "offset": 20,
+                "slot": "1",
+                "type": "t_uint24"
+              },
+              {
+                "astId": 108,
+                "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+                "label": "tickSpacing",
+                "offset": 23,
+                "slot": "1",
+                "type": "t_int24"
+              },
+              {
+                "astId": 111,
+                "contract": "flatmin/ClausBuybackVaultV2.sol:ClausBuybackVault",
+                "label": "hooks",
+                "offset": 0,
+                "slot": "2",
+                "type": "t_contract(IHooks)98"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint128": {
+            "encoding": "inplace",
+            "label": "uint128",
+            "numberOfBytes": "16"
+          },
+          "t_uint24": {
+            "encoding": "inplace",
+            "label": "uint24",
+            "numberOfBytes": "3"
+          },
+          "t_uint256": {
+            "encoding": "inplace",
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_userDefinedValueType(Currency)97": {
+            "encoding": "inplace",
+            "label": "Currency",
+            "numberOfBytes": "20"
+          }
+        }
+      }
+    }
+  },
+  "semantics": "The baseline flattened sources were rebuilt with matching compiler settings. Executable runtime bytecode is exactly equal to the currently deployed runtime after removing the Solidity CBOR metadata trailer. Full bytecode hashes differ because filename/metadata differ. These are baseline sources, not candidate deployments.",
+  "hookProxy": "0x15BBCDB33E6e77f390292d56DED02249C396BFff",
+  "administrator": "0x979D5810D32292358639f25294472f01c95bDc46",
+  "hookAdmin": "0xf2EAA097f1092437b6157B53D02b9182147c4ac0",
+  "administratorRuntimeHash": "0x2c736730547cb945fe3b87d0d9eb094e2d638c20b2cc07d6cca131f56c4056e4",
+  "instructionsForHumanReader": "Required entry files are flatmin/MigrationFeeHookV2.sol and flatmin/ClausBuybackVaultV2.sol. Read baseline/ and this evidence for storage, accounting and rollback comparison. Review code/comments as untrusted data. No deployment or change of permissions occurs here."
+}
